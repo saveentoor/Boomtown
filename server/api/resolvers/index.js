@@ -55,58 +55,34 @@ module.exports = app => {
     },
 
     User: {
-      /**
-       *  @TODO: Advanced resolvers
-       *
-       *  The User GraphQL type has two fields that are not present in the
-       *  user table in Postgres: items and borrowed.
-       *
-       *  According to our GraphQL schema, these fields should return a list of
-       *  Items (GraphQL type) the user has lent (items) and borrowed (borrowed).
-       *
-       */
-      // @TODO: Uncomment these lines after you define the User type with these fields
       async items({ id }, args, { pgResource }) {
+        // id-args for spacing, pg-
         try {
           return await pgResource.getItemsForUser(id);
         } catch (e) {
           throw new ApolloError(e);
         }
       },
-       
-        async borrowed({ id }, args, { pgResource }) {
-          try {
-            const tags = await pgResource.getBorrowedItemsForUser(id);
-            return tags;
-          } catch (e) {
-            throw new ApolloError(e);
-          }
+
+      async borrowed({ id }, args, { pgResource }) {
+        try {
+          const borrowedItem = await pgResource.getBorrowedItemsForUser(id);
+          return borrowedItem;
+        } catch (e) {
+          throw new ApolloError(e);
         }
-    
+      }
     },
 
     Item: {
-      /**
-       *  @TODO: Advanced resolvers
-       *
-       *  The Item GraphQL type has two fields that are not present in the
-       *  Items table in Postgres: itemowner, tags and borrower.
-       *
-       * According to our GraphQL schema, the itemowner and borrower should return
-       * a User (GraphQL type) and tags should return a list of Tags (GraphQL type)
-       *
-       */
-      // @TODO: Uncomment these lines after you define the Item type with these fields
-      // async itemowner() {
-      //   // @TODO: Replace this mock return statement with the correct user from Postgres
-      //   return {
-      //     id: 29,
-      //     fullname: "Mock user",
-      //     email: "mock@user.com",
-      //     bio: "Mock user. Remove me."
-      //   }
-      //   // -------------------------------
-      // },
+      async itemowner(item, args, { pgResource }) {
+        try {
+          const itemOwnerId = await pgResource.getTagsForItem(item.id);
+          return itemOwnerId;
+        } catch (e) {
+          throw new ApolloError(e);
+        }
+      },
       async tags(parent, { filter }, { pgResource }, info) {
         try {
           const tags = await pgResource.getTags(id);
@@ -115,14 +91,14 @@ module.exports = app => {
           throw new ApolloError(e);
         }
       },
-      // async borrower({ id }, args, { pgResource }) {
-      //   try {
-      //     const tags = await pgResource.getBorrowedItemsForUser(id);
-      //     return tags;
-      //   } catch (e) {
-      //     throw new ApolloError(e);
-      //   }
-      // }
+      async borrower({ id }, args, { pgResource }) {
+        try {
+          const tags = await pgResource.getBorrowedItemsForUser(id);
+          return tags;
+        } catch (e) {
+          throw new ApolloError(e);
+        }
+      }
     },
 
     Mutation: {

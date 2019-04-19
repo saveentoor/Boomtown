@@ -94,7 +94,6 @@ module.exports = postgres => {
 
       const user = await postgres.query(findUserQuery);
       return user;
-      // -------------------------------
     },
     async getItems(idToOmit) {
       const items = await postgres.query({
@@ -105,10 +104,6 @@ module.exports = postgres => {
     },
     async getItemsForUser(id) {
       const items = await postgres.query({
-        /**
-         *  @TODO: Advanced queries
-         *  Get all Items. Hint: You'll need to use a LEFT INNER JOIN among others
-         */
         text: `SELECT * from items WHERE ownerid = $1;`,
         values: [id]
       });
@@ -116,10 +111,6 @@ module.exports = postgres => {
     },
     async getBorrowedItemsForUser(id) {
       const items = await postgres.query({
-        /**
-         *  @TODO: Advanced queries
-         *  Get all Items. Hint: You'll need to use a LEFT INNER JOIN among others
-         */
         text: `SELECT * FROM items WHERE borrowedid = $1;`,
         values: [id]
       });
