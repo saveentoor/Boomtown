@@ -98,17 +98,6 @@ module.exports = postgres => {
     },
     async getItems(idToOmit) {
       const items = await postgres.query({
-        /**
-         *  @TODO: Advanced queries
-         *
-         *  Get all Items. If the idToOmit parameter has a value,
-         *  the query should only return Items were the ownerid column
-         *  does not contain the 'idToOmit'
-         *
-         *  Hint: You'll need to use a conditional AND and WHERE clause
-         *  to your query text using string interpolation
-         */
-
         text: `SELECT * FROM items WHERE ownerid != $1;`,
         values: idToOmit ? [idToOmit] : []
       });
@@ -185,23 +174,23 @@ module.exports = postgres => {
             client.query('BEGIN', async err => {
               const { title, description, tags } = item;
 
-              // Generate new Item query
-              // @TODO
-              // -------------------------------
+              //creating a new constant for new query id
+              const newItemQuery = {
+                text: `INSERT INTO items(title, description, ownerid) VALUES ($1, $2, $3) RETURN *`,
+                values: [title, description, user.id]
+              };
 
-              // Insert new Item
-              // @TODO
-              // -------------------------------
+              const insertNewItem = await postgres.query(newItemQuery); // to await the function to run before refreshing it
 
-              // Generate tag relationships query (use the'tagsQueryString' helper function provided)
-              // @TODO
-              // -------------------------------
+              const attachingTagsToItems = {
+                text: `INSERT INTO itemtags(itemid, tagid) VALUES ${tagQueryString(
+                  [...tags],
+                  insertNewItem.rows[0].id,
+                  ''
+                )} `, //making the new item the top row
+                values: tags.map(tag => tag.id)
+              };
 
-              // Insert tags
-              // @TODO
-              // -------------------------------
-
-              // Commit the entire transaction!
               client.query('COMMIT', err => {
                 if (err) {
                   throw err;
