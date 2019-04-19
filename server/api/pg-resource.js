@@ -198,7 +198,7 @@ module.exports = postgres => {
                 // release the client back to the pool
                 done();
                 // Uncomment this resolve statement when you're ready!
-                // resolve(newItem.rows[0])
+                resolve(insertNewItem.rows[0]);
                 // -------------------------------
               });
             });
