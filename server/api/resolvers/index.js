@@ -27,20 +27,6 @@ module.exports = app => {
 
     Query: {
       viewer() {
-        /**
-         * @TODO: Authentication - Server
-         *
-         *  If you're here, you have successfully completed the sign-up and login resolvers
-         *  and have added the JWT from the HTTP cookie to your resolver's context.
-         *
-         *  The viewer is what we're calling the current user signed into your application.
-         *  When the user signed in with their username and password, an JWT was created with
-         *  the user's information cryptographically encoded inside.
-         *
-         *  To provide information about the user's session to the app, decode and return
-         *  the token's stored user here. If there is no token, the user has signed out,
-         *  in which case you'll return null
-         */
         return null;
       },
       async user(parent, { id }, { pgResource }, info) {
@@ -80,17 +66,23 @@ module.exports = app => {
        *
        */
       // @TODO: Uncomment these lines after you define the User type with these fields
-      // items() {
-      //   // @TODO: Replace this mock return statement with the correct items from Postgres
-      //   return []
-      //   // -------------------------------
-      // },
-      // borrowed() {
-      //   // @TODO: Replace this mock return statement with the correct items from Postgres
-      //   return []
-      //   // -------------------------------
-      // }
-      // -------------------------------
+      async items({ id }, args, { pgResource }) {
+        try {
+          return await pgResource.getItemsForUser(id);
+        } catch (e) {
+          throw new ApolloError(e);
+        }
+      },
+       
+        async borrowed({ id }, args, { pgResource }) {
+          try {
+            const tags = await pgResource.getBorrowedItemsForUser(id);
+            return tags;
+          } catch (e) {
+            throw new ApolloError(e);
+          }
+        }
+    
     },
 
     Item: {
@@ -115,20 +107,22 @@ module.exports = app => {
       //   }
       //   // -------------------------------
       // },
-      // async tags() {
-      //   // @TODO: Replace this mock return statement with the correct tags for the queried Item from Postgres
-      //   return []
-      //   // -------------------------------
-      // },
-      // async borrower() {
-      //   /**
-      //    * @TODO: Replace this mock return statement with the correct user from Postgres
-      //    * or null in the case where the item has not been borrowed.
-      //    */
-      //   return null
-      //   // -------------------------------
+      async tags(parent, { filter }, { pgResource }, info) {
+        try {
+          const tags = await pgResource.getTags(id);
+          return tags;
+        } catch (e) {
+          throw new ApolloError(e);
+        }
+      },
+      // async borrower({ id }, args, { pgResource }) {
+      //   try {
+      //     const tags = await pgResource.getBorrowedItemsForUser(id);
+      //     return tags;
+      //   } catch (e) {
+      //     throw new ApolloError(e);
+      //   }
       // }
-      // -------------------------------
     },
 
     Mutation: {

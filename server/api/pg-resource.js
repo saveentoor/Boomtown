@@ -120,7 +120,7 @@ module.exports = postgres => {
          *  @TODO: Advanced queries
          *  Get all Items. Hint: You'll need to use a LEFT INNER JOIN among others
          */
-        text: `SELECT * from INNER JOIN itemtags ON item.id = NULL;`,
+        text: `SELECT * from items WHERE ownerid = $1;`,
         values: [id]
       });
       return items.rows;
@@ -131,7 +131,7 @@ module.exports = postgres => {
          *  @TODO: Advanced queries
          *  Get all Items. Hint: You'll need to use a LEFT INNER JOIN among others
          */
-        text: ``,
+        text: `SELECT * FROM items WHERE borrowedid = $1;`,
         values: [id]
       });
       return items.rows;
@@ -139,14 +139,14 @@ module.exports = postgres => {
     async getTags() {
       try {
         const tags = await postgres.query('SELECT * FROM tags');
-        return tags.rows}catch (err) {
-          throw err;
-        }
-    
+        return tags.rows;
+      } catch (err) {
+        throw err;
+      }
     },
     async getTagsForItem(id) {
       const tagsQuery = {
-        text: ``, // @TODO: Advanced queries
+        text: ` SELECT * FROM tags INNER JOIN itemtags ON tags.id=itemtags.tagid WHERE itemtags.itemid=$1;`,
         values: [id]
       };
 
