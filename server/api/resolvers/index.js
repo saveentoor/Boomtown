@@ -102,11 +102,11 @@ module.exports = app => {
     },
 
     Mutation: {
-    
       async addItem(parent, args, { pgResource }, info) {
         //image = await image;
         try {
-          const user = await jwt.decode(token, app.get('JWT_SECRET'));
+          // const user = await jwt.decode(token, app.get('JWT_SECRET'));
+          const user = { id: '1' };
           const newItem = await pgResource.saveNewItem({
             item: args.item,
             //image: args.image,
@@ -118,6 +118,5 @@ module.exports = app => {
         }
       }
     }
-
   };
 };
