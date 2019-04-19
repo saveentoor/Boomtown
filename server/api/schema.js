@@ -17,12 +17,11 @@ module.exports = gql`
     id: ID!
     title: String!
     imageurl: String
-    description: String
-    itemowner: User
+    description: String!
+    itemowner: User!
     tags: [Tag]
     created: String!
     borrower: User
-
   }
 
   type User {

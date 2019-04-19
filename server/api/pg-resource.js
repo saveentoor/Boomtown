@@ -51,28 +51,8 @@ module.exports = postgres => {
       }
     },
     async getUserById(id) {
-      /**
-       *  @TODO: Handling Server Errors
-       *
-       *  Inside of our resource methods we get to determine when and how errors are returned
-       *  to our resolvers using try / catch / throw semantics.
-       *
-       *  Ideally, the errors that we'll throw from our resource should be able to be used by the client
-       *  to display user feedback. This means we'll be catching errors and throwing new ones.
-       *
-       *  Errors thrown from our resource will be captured and returned from our resolvers.
-       *
-       *  This will be the basic logic for this resource method:
-       *  1) Query for the user using the given id. If no user is found throw an error.
-       *  2) If there is an error with the query (500) throw an error.
-       *  3) If the user is found and there are no errors, return only the id, email, fullname, bio fields.
-       *     -- this is important, don't return the password!
-       *
-       *  You'll need to complete the query first before attempting this exercise.
-       */
-
       const findUserQuery = {
-        text: ' SELECT * from users WHERE id=$1;', // @TODO: Basic queries
+        text: `SELECT * from users WHERE id = $1;`,
         values: [id]
       };
       try {
@@ -97,7 +77,7 @@ module.exports = postgres => {
     },
     async getItems(idToOmit) {
       const items = await postgres.query({
-        text: `SELECT * FROM items WHERE ownerid != $1;`,
+        text: `SELECT * FROM items ${idToOmit ? 'WHERE ownerid != $1' : ''}`, //
         values: idToOmit ? [idToOmit] : []
       });
       return items.rows;
@@ -126,7 +106,7 @@ module.exports = postgres => {
     },
     async getTagsForItem(id) {
       const tagsQuery = {
-        text: ` SELECT * FROM tags INNER JOIN itemtags ON tags.id=itemtags.tagid WHERE itemtags.itemid=$1;`,
+        text: `SELECT * FROM tags INNER JOIN itemtags ON tags.id=itemtags.tagid WHERE itemtags.itemid=$1;`,
         values: [id]
       };
 
@@ -167,14 +147,14 @@ module.exports = postgres => {
 
               //creating a new constant for new query id
               const newItemQuery = {
-                text: `INSERT INTO items(title, description, ownerid) VALUES ($1, $2, $3) RETURN *`,
+                text: `INSERT INTO items(title, description, ownerid) VALUES ($1, $2, $3) RETURNING *`,
                 values: [title, description, user.id]
               };
 
               const insertNewItem = await postgres.query(newItemQuery); // to await the function to run before refreshing it
 
               const attachingTagsToItems = {
-                text: `INSERT INTO itemtags(itemid, tagid) VALUES ${tagQueryString(
+                text: `INSERT INTO itemtags(itemid, tagid) VALUES ${tagsQueryString(
                   [...tags],
                   insertNewItem.rows[0].id,
                   ''
