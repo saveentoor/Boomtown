@@ -77,15 +77,15 @@ module.exports = app => {
     Item: {
       async itemowner(item, args, { pgResource }) {
         try {
-          const itemOwnerId = await pgResource.getTagsForItem(item.id);
+          const itemOwnerId = await pgResource.getUserById(item.itemOwnerId);
           return itemOwnerId;
         } catch (e) {
           throw new ApolloError(e);
         }
       },
-      async tags(parent, { filter }, { pgResource }, info) {
+      async tags(item, args, { pgResource }) {
         try {
-          const tags = await pgResource.getTags(id);
+          const tags = await pgResource.getTagsForItem(item.id);
           return tags;
         } catch (e) {
           throw new ApolloError(e);
@@ -93,8 +93,8 @@ module.exports = app => {
       },
       async borrower({ id }, args, { pgResource }) {
         try {
-          const tags = await pgResource.getBorrowedItemsForUser(id);
-          return tags;
+          const borrowerItemID = await pgResource.getBorrowedItemsForUser(id);
+          return borrowerItemID;
         } catch (e) {
           throw new ApolloError(e);
         }
@@ -102,32 +102,19 @@ module.exports = app => {
     },
 
     Mutation: {
-      // @TODO: Uncomment this later when we add auth
-      // ...authMutations(app),
-      // -------------------------------
-
       async addItem(parent, args, context, info) {
-        /**
-         *  @TODO: Destructuring
-         *
-         *  The 'args' and 'context' parameters of this resolver can be destructured
-         *  to make things more readable and avoid duplication.
-         *
-         *  When you're finished with this resolver, destructure all necessary
-         *  parameters in all of your resolver functions.
-         *
-         *  Again, you may look at the user resolver for an example of what
-         *  destructuring should look like.
-         */
-
-        image = await image;
-        const user = await jwt.decode(context.token, app.get('JWT_SECRET'));
-        const newItem = await context.pgResource.saveNewItem({
-          item: args.item,
-          image: args.image,
-          user
-        });
-        return newItem;
+        //image = await image;
+        try {
+          const user = await jwt.decode(context.token, app.get('JWT_SECRET'));
+          const newItem = await context.pgResource.saveNewItem({
+            item: args.item,
+            //image: args.image,
+            user
+          });
+          return newItem;
+        } catch (e) {
+          throw new ApolloError(e);
+        }
       }
     }
   };
