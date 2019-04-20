@@ -1,4 +1,5 @@
 # Boomtown 🏙
+Boomtown is a fully functional web-based application to support a local sharing economy. It was built using React, Redux, and Graphql. Boomtown allows users to share their items and borrow from other users.  
 
 ## Server
 
