@@ -1,12 +1,4 @@
 /**
- *  @TODO: Handling Server Errors
- *
- *  Once you've completed your pg-resource.js methods and handled errors
- *  use the ApolloError constructor to capture and return errors from your resolvers.
- *
- *  Throwing ApolloErrors from your resolvers is a nice pattern to follow and
- *  will help you easily debug problems in your resolving functions.
- *
  *  It will also help you control th error output of your resource methods and use error
  *  messages on the client! (More on that later).
  *
@@ -14,7 +6,6 @@
  *  Finish of the rest of the resolvers when you're ready.
  */
 const { ApolloError } = require('apollo-server-express');
-
 
 const jwt = require('jsonwebtoken');
 //const authMutations = require('./auth');
@@ -24,7 +15,6 @@ const { DateScalar } = require('../custom-types');
 module.exports = app => {
   return {
     //Date: DateScalar,
-
     Query: {
       viewer() {
         return null;
@@ -53,17 +43,14 @@ module.exports = app => {
         }
       }
     },
-
     User: {
       async items({ id }, args, { pgResource }) {
-        // id-args for spacing, pg-
         try {
           return await pgResource.getItemsForUser(id);
         } catch (e) {
           throw new ApolloError(e);
         }
       },
-
       async borrowed({ id }, args, { pgResource }) {
         try {
           const borrowedItem = await pgResource.getBorrowedItemsForUser(id);
@@ -73,7 +60,6 @@ module.exports = app => {
         }
       }
     },
-
     Item: {
       async itemowner(item, args, { pgResource }) {
         try {
@@ -100,7 +86,6 @@ module.exports = app => {
         }
       }
     },
-
     Mutation: {
       async addItem(parent, args, { pgResource }, info) {
         //image = await image;

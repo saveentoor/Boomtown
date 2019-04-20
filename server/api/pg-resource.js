@@ -1,10 +1,4 @@
 function tagsQueryString(tags, itemid, result) {
-  /**
-   * Challenge:
-   * This function is more than a little complicated.
-   *  - Can you refactor it to be simpler / more readable?
-   *  - Is this
-   */
   const length = tags.length;
   return length === 0
     ? `${result};`
@@ -129,7 +123,6 @@ module.exports = postgres => {
                 if (err) {
                   throw err;
                 }
-                // release the client back to the pool
                 done();
                 
                 resolve(insertNewItem.rows[0]);
@@ -137,12 +130,10 @@ module.exports = postgres => {
               });
             });
           } catch (e) {
-            // Something went wrong
             client.query('ROLLBACK', err => {
               if (err) {
                 throw err;
               }
-              // release the client back to the pool
               done();
             });
             switch (true) {
