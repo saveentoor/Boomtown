@@ -114,14 +114,14 @@ module.exports = postgres => {
                 values: [title, description, user.id]
               };
 
-              const insertNewItem = await postgres.query(newItemQuery); // to await the function to run before refreshing it
+              const insertNewItem = await postgres.query(newItemQuery); 
 
               const attachingTagsToItems = {
                 text: `INSERT INTO itemtags(itemid, tagid) VALUES ${tagsQueryString(
                   [...tags],
                   insertNewItem.rows[0].id,
                   ''
-                )} `, //making the new item the top row
+                )} `, 
                 values: tags.map(tag => tag.id)
               };
 
