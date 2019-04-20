@@ -1,8 +1,6 @@
 # Boomtown 🏙
 Boomtown is a fully functional web-based application to support a local sharing economy. It was built using React, Redux, and Graphql. Boomtown allows users to share their items and borrow from other users. 
 
-This web application is based off of a share economy, and it was built using React, Redux, and Graphql. The Boomtown Server project is the web server compliment to this front-end project.
-
 ## Server
 
 Commands must be run from the `server` directory:
@@ -17,38 +15,6 @@ npm install
 
 ```bash
 npm run start:dev
-```
-
-### Tests
-
-Just linting:
-
-```bash
-npm run lint
-```
-
-Run linting, and fix any errors:
-
-```bash
-npm run lint:fix
-```
-
-Run Jest tests:
-
-```
-npm run jest
-```
-
-Run Jest tests, and watch for changes:
-
-```bash
-npm run jest:watch
-```
-
-Run all tests:
-
-```bash
-npm run test
 ```
 
 ## Client
@@ -72,26 +38,3 @@ npm start
 ```bash
 npm run build
 ```
-
-### Tests
-
-Just linting:
-
-```bash
-npm run lint
-```
-
-Run linting, and fix any errors:
-
-```bash
-npm run lint:fix
-```
-
-Run all tests:
-
-```bash
-npm run test
-```
-
-
-# Boomtown
