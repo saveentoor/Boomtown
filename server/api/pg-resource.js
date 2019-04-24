@@ -61,7 +61,9 @@ module.exports = postgres => {
     },
     async getItems(idToOmit) {
       const items = await postgres.query({
-        text: `SELECT * FROM items ${idToOmit ? 'WHERE ownerid != $1' : ''}`, 
+        text: `SELECT * FROM items ${idToOmit ? 'WHERE ownerid != $1' : ''}`, //making a second peramture to show a blank section or it would crash
+        //trying not to omit anything. 
+        //select all from items, filter by id to omit not being equal to one 
         values: idToOmit ? [idToOmit] : []
       });
       return items.rows;
@@ -104,7 +106,7 @@ module.exports = postgres => {
             client.query('BEGIN', async err => {
               const { title, description, tags } = item;
               const newItemQuery = {
-                text: `INSERT INTO items(title, description, ownerid) VALUES ($1, $2, $3) RETURNING *`,
+                text: `INSERT INTO items(title, description, ownerid) VALUES ($1, $2, $3) RETURNING *`,//$1, $2, $3 saying 1-title, 2-dec, 3- ownerid
                 values: [title, description, user.id]
               };
 

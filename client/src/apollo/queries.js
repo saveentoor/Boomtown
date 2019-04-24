@@ -8,44 +8,75 @@ const ItemFields = gql`
   fragment ItemFields on Item {
     # @TODO: Create a fragment to query the following fields for an item:
     #
-    # id
-    # title
-    # imageurl
-    # description
-    # created
-    # tags (id and title fields)
-    # itemowner (id, fullname, email, and bio fields)
-    # borrower (id, fullname, email, and bio fields)
-    #
+     #id
+
+     #title
+
+     #imageurl
+
+     #description
+
+     #created
+
+  ]#tags 
+    {
+    id 
+    title 
+    fields
+  }
+
+  #itemowner {
+    id
+    fullname
+    email
+    bio fields
+  }
+  #borrower {
+    id
+    fullname
+    email 
+    bio fields
+  }
+    
     # See the Apollo docs for instructions on how to use fragments:
     # https://www.apollographql.com/docs/angular/features/fragments.html
   }
 `;
 export const ITEM_QUERY = gql`
-  query item($id: ID!) {
-    # @TODO: Query an item by its id and return the ItemFields fragment.
+query item($id: ID!) {
+  items(filter:$id){
+    ...ItemFields
   }
+}
   ${ItemFields}
 `;
 
 export const ALL_ITEMS_QUERY = gql`
-  query items($filter: ID) {
-    # @TODO: Query items (optionally by tag id) and return the ItemFields fragment.
-  }
-  ${ItemFields}
+query item($filter: ID!) {
+}
+  ...${ItemFields}
 `;
 
 export const ALL_USER_ITEMS_QUERY = gql`
-  query user($id: ID!) {
-    # @TODO: Query the bio, email, fullname, items, and borrowed for the user by id
-    # Use the ItemFields fragment for the items and borrowed fields.
+query user{
+  fullname
+  email
+  bio
+  items{
+    ...${ItemFields}
   }
-  ${ItemFields}
+  borrowed {
+    ...${ItemFields}
+  }
+}
 `;
 
 export const ALL_TAGS_QUERY = gql`
-  query {
-    # @TODO: Query the id and title fields for tags.
+  query users {
+    tags {
+      id
+      title
+    }
   }
 `;
 
