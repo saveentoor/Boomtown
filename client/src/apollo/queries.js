@@ -43,18 +43,18 @@ const ItemFields = gql`
   }
 `;
 export const ITEM_QUERY = gql`
-query item($id: ID!) {
-  items(filter:$id){
-    ...ItemFields
+  query item($id: ID!) {
+    items(filter: $id) {
+      ...ItemFields
+    }
   }
-}
   ${ItemFields}
 `;
 
 export const ALL_ITEMS_QUERY = gql`
 query item($filter: ID!) {
-}
   ...${ItemFields}
+}
 `;
 
 export const ALL_USER_ITEMS_QUERY = gql`
