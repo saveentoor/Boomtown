@@ -1,14 +1,12 @@
 import React from 'react';
+import Itemsgrid from '../../components/ItemsGrid';
 
-const Items = ({ classes }) => {
+const Items = ({ classes, items }) => {
   return (
     <div>
-      <p>
-        This is the items page located at <code>/items</code>.
-      </p>
+      <Itemsgrid item={items} />
     </div>
   );
 };
 
 export default Items;
-
