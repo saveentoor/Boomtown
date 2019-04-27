@@ -6,37 +6,30 @@ import gql from 'graphql-tag';
 
 const ItemFields = gql`
   fragment ItemFields on Item {
-  
-     id
-
-     title
-
-     imageurl
-
-     description
-
-     created
-
-  tags 
-    {
-    id 
-    title 
-    fields
-  }
-
-  itemowner {
     id
-    fullname
-    email
-    bio fields
+    title
+    imageurl
+    description
+    created
+
+    tags {
+      id
+      title
+    }
+
+    itemowner {
+      id
+      fullname
+      email
+      bio
+    }
+    borrower {
+      id
+      fullname
+      email
+      bio
+    }
   }
-  borrower {
-    id
-    fullname
-    email 
-    bio fields
-  }
-}
 `;
 export const ITEM_QUERY = gql`
   query item($id: ID!) {
@@ -48,27 +41,32 @@ export const ITEM_QUERY = gql`
 `;
 
 export const ALL_ITEMS_QUERY = gql`
-query item($filter: ID!) {
-  ...${ItemFields}
-}
+  query item($filter: ID!) {
+    items(filter: $filter) {
+      ...ItemFields
+    }
+  }
+  ${ItemFields}
 `;
 
 export const ALL_USER_ITEMS_QUERY = gql`
-query user{
-  fullname
-  email
-  bio
-  items{
-    ...${ItemFields}
+  query user($id: ID!) {
+    user(id: $id)
+    fullname
+    email
+    bio
+    items {
+      ...ItemFields
+    }
+    borrowed {
+      ...ItemFields
+    }
   }
-  borrowed {
-    ...${ItemFields}
-  }
-}
+  ${ItemFields}
 `;
 
 export const ALL_TAGS_QUERY = gql`
-  query users {
+  query {
     tags {
       id
       title

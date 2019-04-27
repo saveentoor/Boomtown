@@ -1,3 +1,3 @@
-import ItemsGrid from './ItemsCard';
+import ItemsCard from './ItemsCard';
 
 export default ItemsCard;

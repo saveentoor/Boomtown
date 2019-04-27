@@ -5,14 +5,14 @@ import PropTypes from 'prop-types';
 const Items = ({ classes, items }) => {
   return (
     <div>
-      <Itemsgrid className={classes} item={items} />
+      <Itemsgrid className={classes} items={items} />
     </div>
   );
 };
 
-ItemsGrid.protoTypes = {
+Items.protoTypes = {
   classes: PropTypes.object.isRequired,
-  items: PropTypes.object.isRequired
+  items: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default Items;

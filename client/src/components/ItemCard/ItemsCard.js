@@ -13,13 +13,13 @@ import { Link, withRouter } from 'react-router-dom';
 
 import styles from './styles';
 
-const ItemCard = ({ classes, item }) => {
+const ItemsCard = ({ classes, item }) => {
   return (
     <Card className={classes.card}>
       <Fragment>
         <CardMedia
           className={classes.media}
-          image={image.imageurl}
+          image={item.imageurl}
           title={item.title}
           component={Link}
           to={`profile/${item.itemowner.id}`} //link to whatever we put in this
@@ -28,7 +28,7 @@ const ItemCard = ({ classes, item }) => {
           <div className={classes.itemownerContainer}>
             <div>
               <Avatar aria-lable="user" className={classes.avatar}>
-                {itemowner && <Gravatar email={item.itemowner.email} />}
+                {item.itemowner && <Gravatar email={item.itemowner.email} />}
               </Avatar>
             </div>
             <div>
@@ -55,9 +55,9 @@ const ItemCard = ({ classes, item }) => {
   );
 };
 
-MediaCard.propTypes = {
+ItemsCard.propTypes = {
   classes: PropTypes.object.isRequired,
   item: PropTypes.object.isRequired
 };
 
-export default withRouter(withStyles(styles)(ItemCard));
+export default withRouter(withStyles(styles)(ItemsCard));
