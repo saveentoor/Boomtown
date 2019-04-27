@@ -20,5 +20,9 @@ class ItemsContainer extends Component {
       );
     }
   }
+
+  ItemsGrid.protoTypes = {
+    classes: PropTypes.object.isRequired
+  };
   
   export default withStyles(styles)(ItemsContainer);

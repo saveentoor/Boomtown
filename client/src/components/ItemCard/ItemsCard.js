@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -22,6 +21,7 @@ const ItemCard = ({ classes, item }) => {
           className={classes.media}
           image={image.imageurl}
           title={item.title}
+          component={Link}
           to={`profile/${item.itemowner.id}`} //link to whatever we put in this
         />
         <CardContent>
@@ -60,4 +60,4 @@ MediaCard.propTypes = {
   item: PropTypes.object.isRequired
 };
 
-export default withRouter (withStyles(styles)(ItemsCard));
+export default withRouter(withStyles(styles)(ItemCard));
