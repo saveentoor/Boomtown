@@ -13,12 +13,12 @@ module.exports = gql`
   }
 
   type User {
-    id: ID!
-    email: String!
-    fullname: String!
+    id: ID
+    email: String
+    fullname: String
     bio: String
     items: [Item]
-    borrowed: [ID]
+    borrowed: [Item]
   }
 
   type Tag {
@@ -31,7 +31,7 @@ module.exports = gql`
     filename: String!
     mimetype: String!
     encoding: String!
-    itemid: [Item!]
+    itemid: [ID!]
   }
 
   input AssignedTag {
@@ -40,7 +40,7 @@ module.exports = gql`
   }
 
   input AssignedBorrower {
-   id: ID!
+    id: ID!
   }
 
   input NewItemInput {
@@ -52,7 +52,7 @@ module.exports = gql`
   type Query {
     user(id: ID!): User
     viewer: User
-    items(filter: ID): [Item]
+    items(filter: ID!): [Item]
     tags: [Tag]
   }
 

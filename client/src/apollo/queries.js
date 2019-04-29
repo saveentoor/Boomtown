@@ -11,7 +11,6 @@ const ItemFields = gql`
     imageurl
     description
     created
-
     tags {
       id
       title
@@ -41,7 +40,7 @@ export const ITEM_QUERY = gql`
 `;
 
 export const ALL_ITEMS_QUERY = gql`
-  query item($filter: ID!) {
+  query items($filter: ID!) {
     items(filter: $filter) {
       ...ItemFields
     }
@@ -51,15 +50,17 @@ export const ALL_ITEMS_QUERY = gql`
 
 export const ALL_USER_ITEMS_QUERY = gql`
   query user($id: ID!) {
-    user(id: $id)
-    fullname
-    email
-    bio
-    items {
-      ...ItemFields
-    }
-    borrowed {
-      ...ItemFields
+    user(id: $id) {
+      id
+      fullname
+      email
+      bio
+      items {
+        ...ItemFields
+      }
+      borrowed {
+        ...ItemFields
+      }
     }
   }
   ${ItemFields}
@@ -74,15 +75,19 @@ export const ALL_TAGS_QUERY = gql`
   }
 `;
 
-// export const ADD_ITEM_MUTATION = gql`
-//   mutation addItem($item: NewItemInput!) {
-//     # @TODO: Pass the item and image into the addItem mutation as arguments
-//     # and return the new item id when the mutation is complete.
-//   }
-// `;
-// /**
-//  * Auth-related queries and mutations.
-//  */
+export const ADD_ITEM_MUTATION = gql`
+  mutation addItem($item: NewItemInput!) {
+    addItem(item: $item) {
+      id
+      title
+      description
+      tags {
+        id
+        title
+      }
+    }
+  }
+`;
 
 // export const VIEWER_QUERY = gql`
 //   query {

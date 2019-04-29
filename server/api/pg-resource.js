@@ -77,7 +77,7 @@ module.exports = postgres => {
     },
     async getBorrowedItemsForUser(id) {
       const items = await postgres.query({
-        text: `SELECT * FROM items WHERE borrowedid = $1;`,
+        text: `SELECT * FROM items WHERE borrowerid = $1;`,
         values: [id]
       });
       return items.rows;

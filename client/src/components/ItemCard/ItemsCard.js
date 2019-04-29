@@ -19,21 +19,24 @@ const ItemsCard = ({ classes, item }) => {
       <Fragment>
         <CardMedia
           className={classes.media}
-          image={item.imageurl}
+          image="https://picsum.photos/200/300"
           title={item.title}
           component={Link}
-          to={`profile/${item.itemowner.id}`} //link to whatever we put in this
+          to={
+            ''
+            // `profile/${item.itemowner.id}`
+          } //link to whatever we put in this
         />
         <CardContent>
           <div className={classes.itemownerContainer}>
             <div>
-              <Avatar aria-lable="user" className={classes.avatar}>
-                {item.itemowner && <Gravatar email={item.itemowner.email} />}
+              <Avatar className={classes.avatar}>
+                {/* {item.itemowner && <Gravatar email={item.itemowner.email} />} */}
               </Avatar>
             </div>
             <div>
               <Typography className={classes.nameOfItemOwner}>
-                {item.itemowner.fullname}
+                {/* {item.itemowner.fullname} */}
               </Typography>
             </div>
           </div>
