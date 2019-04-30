@@ -2,8 +2,8 @@ import React from 'react';
 import ItemsCard from '../ItemCard';
 import { connect } from 'react-redux';
 
-const ShareItemPreview = (props) => {
-  return <ItemsCard />;
+const ShareItemPreview = ({shareItemPreview}) => {
+  return <ItemsCard item={shareItemPreview} />;
 };
 
 //map state to form

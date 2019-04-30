@@ -1,5 +1,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
+//import {withStyles} from '@material-ui/core/styles';
+
 /* 
   TODO: Create ShareItemFrom and ShareItemPreview in the components dir
   and call them from this file.
@@ -18,13 +20,10 @@ const Share = ({ classes, tags }) => {
   return (
     //causing error on share page
     <Grid container spacing={32}>
-      {/* {<ShareItemPreview className={classes}/>} */}
+      <ShareItemPreview />
       <Grid item xs={6}>
-        <ShareItemForm className={classes} tags={tags} />
+        <ShareItemForm tags={tags} />
       </Grid>
-      <p>
-        This is the share page located at <code>/share</code>.
-      </p>
     </Grid>
   );
 };

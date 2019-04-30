@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
-
-import {
-  TextField,
-  Button,
-  ListItemText,
-  withStyles,
-  Select,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Checkbox,
-  Typography
-} from '@material-ui/core/';
 import { Form, Field, FormSpy } from 'react-final-form';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Mutation } from 'react-apollo';
 import validate from './helpers/validation';
 import { ADD_ITEM_MUTATION, ALL_ITEMS_QUERY } from '../../apollo/queries';
-
 import styles from './styles';
+import {updateItem, resetItem, resetImage} from '../../redux/shareItemPreview/reducer';
+import { connect } from 'react-redux';
+import {
+    TextField,
+    Button,
+    ListItemText,
+    withStyles,
+    Select,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Checkbox,
+    Typography
+  } from '@material-ui/core/';
 
 class ShareItemForm extends Component {
   constructor(props) {
@@ -41,6 +40,19 @@ class ShareItemForm extends Component {
   handleChange = event => {
     this.setState({ selectedTags: event.target.value });
   };
+  dispatchUpdate(values, tags, updateNewItem) {
+    if (!values.imageurl && this.state.fileSelected) {
+      this.getBase64Url().then(imageurl => {
+        updateNewItem({
+          imageurl
+        });
+      });
+    }
+    updateNewItem({
+      ...values,
+      tags: this.applyTags(tags)
+    });
+  }
 
   render() {
     const { classes, tags, updateItem, resetItem } = this.props;
@@ -52,24 +64,11 @@ class ShareItemForm extends Component {
      <Mutation mutation={ADD_ITEM_MUTATION}>
         {addItemMutation => {
         return (
+            
          <Form
-            onSubmit={async values => {
-            addItemMutation({
-            variables: {
-            item: {
-            ...values,
-            tags: this.state.selectedTags.map(tag => ({
-            id: tag,
-            title: ''
-            }))
-        }
-    },
-            refetchQueries: [
-         {
-            query: ALL_ITEMS_QUERY
-        }
-            ]
-        });
+            onSubmit={values => {
+                this.saveItem(values);//tags
+      
         }}
             validate={values => {
             return validate(values, this.state.selectedTags);
@@ -92,6 +91,7 @@ class ShareItemForm extends Component {
         });
     }}
         >
+
             <Field
             name="title"
             render={({ input, meta }) => {
@@ -203,12 +203,22 @@ class ShareItemForm extends Component {
     ShareItemForm.propTypes = {
     classes: PropTypes.object.isRequired,
     tags: PropTypes.arrayOf(PropTypes.object).isRequired,
-    updateItem: PropTypes.func.isRequired,
-    resetItem: PropTypes.func.isRequired,
-    resetImage: PropTypes.func.isRequired
+    // updateItem: PropTypes.func.isRequired,
+    // resetItem: PropTypes.func.isRequired,
+    // resetImage: PropTypes.func.isRequired
 
 };
 
+const mapDispatchToProps = (dispatch) => ({
+    updateItem(item){
+    dispatch(updateItem(item));
+    },
+    resetImage(){
+        dispatch(resetImage());
+    },
+    resetItem(){
+        dispatch(resetItem());
+    }
+});
 
-
-export default withStyles(styles)(ShareItemForm);
+export default connect(null,mapDispatchToProps)(withStyles(styles)(ShareItemForm));

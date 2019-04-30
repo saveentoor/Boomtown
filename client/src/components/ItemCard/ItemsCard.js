@@ -38,9 +38,9 @@ const ItemsCard = ({ classes, item }) => {
               </Typography>
             </div>
           </div>
-          <Typography variant="title">{item.title}</Typography>
+          <Typography variant="display1">{item.title}</Typography>
 
-          <Typography variant="body">{item.description}</Typography>
+          <Typography variant="display1">{item.description}</Typography>
 
           <Typography component="p">
             {item.tags.map(tag => tag.title).join(', ')}
