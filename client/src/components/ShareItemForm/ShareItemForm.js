@@ -27,15 +27,24 @@ import {
 class ShareItemForm extends Component {
   constructor(props) {
     super(props);
-    this.fileInput = React.createRef();
     this.state = {
       fileSelected: false,
       done: false,
       selectedTags: [],
     };
+    this.fileInput = React.createRef();
   }
-
-  applyTags(tags) {
+//   handleSelectTag=(event) =>{ // look over, may have duplicate 
+//       this.setState({
+//           selectedTags: event.target.value
+//       });
+//       handleSelectFile=(event) =>{
+//           this.setState({
+//               fileSelected:this.fileInput.current.files[0]
+//           })
+//       }
+//   }
+  applyTags(tags) {//converts an array of objects into a array of text
     return (
       tags &&
       tags
@@ -47,6 +56,27 @@ class ShareItemForm extends Component {
   handleChange = event => {
     this.setState({ selectedTags: event.target.value });
   };
+  getBase64Url() { //look over 
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        resolve(
+          `data:${this.state.fileSelected.type};base64, ${btoa(
+            e.target.result
+          )}`
+        );
+      };
+      reader.readAsBinaryString(this.state.fileSelected);
+    });
+  }
+  resetFileInput = () =>{
+      this.fileInput.current.value = '';
+      this.props.resetImage();
+      this.setState({
+          fileSelected: false
+      });
+  }
+
   dispatchUpdate(values, tags, updateNewItem) {
     if (!values.imageurl && this.state.fileSelected) {
       this.getBase64Url().then(imageurl => {
@@ -78,25 +108,14 @@ class ShareItemForm extends Component {
                 validate={values => {
                   return validate(values, this.state.selectedTags);
                 }}
-                render={({
-                  handleSubmit,
-                  pristine,
-                  submitting,
-                  invalid,
-                  form
-                }) => (
-                  <form
-                    onSubmit={event => {
-                      handleSubmit(event).then(() => {
-                        form.reset();
-
-                        this.fileInput.current.value = '';
-
-                        this.setState({ selectedTags: [] });
-                        resetItem();
-                      });
-                    }}
-                  >
+                render={({handleSubmit,pristine,invalid,form, values}) => (
+                  <form onSubmit={event => { handleSubmit(event).then(() => { form.reset();
+                    this.fileInput.current.value = '';
+                    this.setState({ selectedTags: [] });
+                    resetItem();
+            });
+         }}
+                >
                     <Field
                       name="title"
                       render={({ input, meta }) => {
@@ -180,7 +199,7 @@ class ShareItemForm extends Component {
                     <div>
                       <Button
                         variant="contained"
-                        type="submit"
+                        type="file"//changed from submit to file 
                         className={classes.shareItemButton}
                         color="primary"
                       >
