@@ -1,19 +1,12 @@
 import React from 'react';
 import ItemsCard from '../ItemCard';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
-const ShareItemPreview = ({shareItemPreview}) => {
-  return <ItemsCard item={shareItemPreview} />;
+const ShareItemPreview = (props) => {
+  return <ItemsCard />;
 };
 
 //map state to form
- const mapStateToform = state => {
-     return {
-        ...state
-     };
- };
+const mapStateToProps = ({ shareItemPreview }) => ({ shareItemPreview });
 
-ShareItemPreview.propTypes = { shareItemPreview: PropTypes.object.isRequired }; // run if exits
-
-export default ShareItemPreview; //map through form share pform to shareitempreview
+export default connect(mapStateToProps)(ShareItemPreview); //map through form share pform to shareitempreview

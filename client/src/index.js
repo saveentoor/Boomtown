@@ -4,9 +4,8 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 // @TODO: Uncomment each module as needed in your client app
 import { ApolloProvider } from 'react-apollo';
-import { BrowserRouter } from 'react-router-dom'
-// import { Provider as ReduxProvider } from 'react-redux'
-// -------------------------------
+import { BrowserRouter } from 'react-router-dom';
+import { Provider as ReduxProvider } from 'react-redux';
 
 import registerServiceWorker from './registerServiceWorker';
 import theme from './theme';
@@ -54,9 +53,10 @@ import Home from './pages/Home';
 // -------------------------------
 
 import './index.css';
-
+import store from './redux'
 const App = () => {
   return (
+    <ReduxProvider store={store}> 
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <ApolloProvider client={client}>
@@ -65,6 +65,7 @@ const App = () => {
      </BrowserRouter>
       </ApolloProvider>
     </MuiThemeProvider>
+    </ReduxProvider> 
   );
 };
 

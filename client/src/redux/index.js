@@ -6,7 +6,7 @@ import shareItemPreviewReducer from './shareItemPreview/reducer';
 const middleware = [];
 
 const store = createStore(
-  combineReducers({shareItemPreviewReducer}),
+  combineReducers({shareItemPreview: shareItemPreviewReducer}),
   composeWithDevTools(applyMiddleware(...middleware))
 );
 
