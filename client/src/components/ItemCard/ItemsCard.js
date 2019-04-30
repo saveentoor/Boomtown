@@ -18,13 +18,11 @@ const ItemsCard = ({ classes, item }) => {
     <Card className={classes.card}>
       <Fragment>
         <CardMedia
-          className={classes.media}
-          image="https://picsum.photos/200/300"
+          className={classes.cardMedia}
+          image={item.imageurl}
           title={item.title}
           component={Link}
-          to={
-            ''
-            // `profile/${item.itemowner.id}`
+          to={ `profile/${item.itemowner.id}`
           } //link to whatever we put in this
         />
         <CardContent>
