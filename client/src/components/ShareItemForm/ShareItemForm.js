@@ -29,8 +29,9 @@ class ShareItemForm extends Component {
     super(props);
     this.fileInput = React.createRef();
     this.state = {
+      fileSelected: false,
       done: false,
-      selectedTags: []
+      selectedTags: [],
     };
   }
 
