@@ -4,12 +4,15 @@ import Items from '../pages/Items';
 import Home from '../pages/Home';
 import Share from '../pages/Share';
 import Profile from '../pages/Profile';
-//import MenuBar from '../components/MenuBar';
+import MenuBar from '../components/MenuBar';
+
 
 export default () => (
   <Fragment>
     {/* @TODO: Add your menu component here */}
     {/* Exercise 2 on thursday */}
+
+    <Route  component={MenuBar} />
    
     <Switch>
       <Route exact path="/items" component={Items} />

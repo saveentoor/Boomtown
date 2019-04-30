@@ -30,21 +30,12 @@ class ShareItemForm extends Component {
     this.state = {
       fileSelected: false,
       done: false,
-      selectedTags: [],
+      selectedTags: []
     };
     this.fileInput = React.createRef();
   }
-//   handleSelectTag=(event) =>{ // look over, may have duplicate 
-//       this.setState({
-//           selectedTags: event.target.value
-//       });
-//       handleSelectFile=(event) =>{
-//           this.setState({
-//               fileSelected:this.fileInput.current.files[0]
-//           })
-//       }
-//   }
-  applyTags(tags) {//converts an array of objects into a array of text
+  applyTags(tags) {
+    //converts an array of objects into a array of text
     return (
       tags &&
       tags
@@ -56,7 +47,8 @@ class ShareItemForm extends Component {
   handleChange = event => {
     this.setState({ selectedTags: event.target.value });
   };
-  getBase64Url() { //look over 
+  getBase64Url() {
+    //look over
     return new Promise(resolve => {
       const reader = new FileReader();
       reader.onload = e => {
@@ -69,15 +61,23 @@ class ShareItemForm extends Component {
       reader.readAsBinaryString(this.state.fileSelected);
     });
   }
-  resetFileInput = () =>{
-      this.fileInput.current.value = '';
-      this.props.resetImage();
-      this.setState({
-          fileSelected: false
-      });
+  resetFileInput = () => {
+    //look over, have twice?
+    this.fileInput.current.value = '';
+    this.props.resetImage();
+    this.setState({
+      fileSelected: false
+    });
+  };
+  
+  generateTagsText(tags, selected) {
+    return tags
+      .map(t => (selected.indexOf(t.id) > -1 ? t.title : false))
+      .filter(e => e)
+      .join(', ');
   }
-
   dispatchUpdate(values, tags, updateNewItem) {
+    console.log(values);
     if (!values.imageurl && this.state.fileSelected) {
       this.getBase64Url().then(imageurl => {
         updateNewItem({
@@ -108,14 +108,26 @@ class ShareItemForm extends Component {
                 validate={values => {
                   return validate(values, this.state.selectedTags);
                 }}
-                render={({handleSubmit,pristine,invalid,form, values}) => (
-                  <form onSubmit={event => { handleSubmit(event).then(() => { form.reset();
-                    this.fileInput.current.value = '';
-                    this.setState({ selectedTags: [] });
-                    resetItem();
-            });
-         }}
-                >
+                render={({ handleSubmit, pristine, invalid, form, values }) => (
+                  <form
+                    onSubmit={event => {
+                      handleSubmit(event).then(() => {
+                        form.reset();
+                        this.fileInput.current.value = '';
+                        this.setState({ selectedTags: [] });
+                        resetItem();
+                      });
+                    }}
+                  >
+                    <FormSpy
+                      subscription={{ values: true }}
+                      component={({ values }) => {
+                        if (values) {
+                          this.dispatchUpdate(values, tags, updateItem);
+                        }
+                        return '';
+                      }}
+                    />
                     <Field
                       name="title"
                       render={({ input, meta }) => {
@@ -130,12 +142,6 @@ class ShareItemForm extends Component {
                               type="text"
                               {...input}
                             />
-                            {meta.touched &&
-                              meta.invalid && (
-                                <Typography className={classes.errorText}>
-                                  {meta.error}
-                                </Typography>
-                              )}
                           </div>
                         );
                       }}
@@ -158,16 +164,12 @@ class ShareItemForm extends Component {
                               <div
                                 className="error"
                                 style={{ color: 'red', fontSize: '10px' }}
-                              >
-                                <Typography className={classes.errorText}>
-                                  {meta.error}
-                                </Typography>
-                              </div>
+                              />
                             )}
                         </div>
                       )}
                     />
-                    <Field
+                    {/* { <Field
                       name="tags"
                       render={({ classes, meta }) => (
                         <FormControl fullWidth>
@@ -177,7 +179,7 @@ class ShareItemForm extends Component {
                             value={this.state.selectedTags}
                             onChange={this.handleChange}
                             renderValue={selected => {
-                              return this.generateTagsText(tags, selected);
+                             // return this.generateTagsText(tags, selected);
                             }}
                           >
                             {tags &&
@@ -195,11 +197,43 @@ class ShareItemForm extends Component {
                           </Select>
                         </FormControl>
                       )}
-                    />
+                    /> } */}
+                
+                    <Field name="tags">
+                        {({ input, meta }) => {
+                            
+                            
+                          return (
+                            <Select
+                              multiple
+                              value={this.state.selectedTags}
+                              onChange={ this.handleChange}
+                              renderValue={selected => {
+                                return this.generateTagsText(tags, selected);
+                              }}
+                            >
+                              {tags &&
+                                tags.map(tag => (
+                                  <MenuItem key={tag.id} value={tag.id}>
+                                    <Checkbox
+                                      checked={
+                                        this.state.selectedTags.indexOf(
+                                          tag.id,
+                                        ) > -1
+                                      }
+                                    />
+                                    <ListItemText primary={tag.title} />
+                                  </MenuItem>
+                                ))}
+                            </Select>
+                          );
+                        }}
+                      </Field>
+
                     <div>
                       <Button
                         variant="contained"
-                        type="file"//changed from submit to file 
+                        type="file" //changed from submit to file
                         className={classes.shareItemButton}
                         color="primary"
                       >
@@ -216,15 +250,6 @@ class ShareItemForm extends Component {
     );
   }
 }
-
-ShareItemForm.propTypes = {
-  classes: PropTypes.object.isRequired,
-  tags: PropTypes.arrayOf(PropTypes.object).isRequired
-  // updateItem: PropTypes.func.isRequired,
-  // resetItem: PropTypes.func.isRequired,
-  // resetImage: PropTypes.func.isRequired
-};
-
 const mapDispatchToProps = dispatch => ({
   updateItem(item) {
     dispatch(updateItem(item));

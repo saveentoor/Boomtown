@@ -10,3 +10,5 @@ const ShareItemPreview = ({shareItemPreview}) => {
 const mapStateToProps = ({ shareItemPreview }) => ({ shareItemPreview });
 
 export default connect(mapStateToProps)(ShareItemPreview); //map through form share pform to shareitempreview
+
+
