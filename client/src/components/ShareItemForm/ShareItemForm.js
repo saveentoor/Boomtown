@@ -167,7 +167,7 @@ class ShareItemForm extends Component {
             checked={
             this.state.selectedTags.indexOf(tag.id) >
             -1
-        }
+            }
         />
             <ListItemText primary={tag.title} />
             </MenuItem>
@@ -183,7 +183,6 @@ class ShareItemForm extends Component {
             variant="contained"
             type="submit"
             className={classes.shareItemButton}
-            disabled={submitting || pristine || invalid}
             color="primary"
         >
             Share
