@@ -2,17 +2,22 @@ const { AuthenticationError } = require('apollo-server-express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-function setCookie({ tokenName, token, res }) {
-  res.cookie(tokenName, token, {
-    maxAge: 1000 * 60 * 120, //max time a user can be longed in for, before being kicked it
-    httpOnly: true
+function setCookie({ tokenName, token, res }) {//
+  res.cookie(tokenName, token, {//name of cookie is being passed as tokenname
+    httpOnly: true,//should always be true, 
+    secure: process.env.NODE_ENV === 'production',//setting it as a secure everytime, but only in production
+    maxAge: 1000 * 60 * 60 * 2 //how long this cookie should live
   });
 }
+
 //id that lets server know you exist and lets you get access arrodingly to your role
 function generateToken(user, secret) {
-  const { id, email, fullname, bio } = user;
-  const token = jwt.sign({ id, email, fullname, bio }, secret); //this token is assigned to your user
-  return token;
+  const { id, email, fullname, bio } = user; // Omit the password from the token
+  return jwt.sign(
+    { id, email, fullname, bio },
+    secret,
+    { expiresIn: '2h' }
+  );
 }
 
 module.exports = app => {
@@ -28,11 +33,17 @@ module.exports = app => {
           password: hashedPassword
         });
 
-        // setCookie({
-        //   tokenName: app.get('JWT_COOKIE_NAME'),
-        //   token: generateToken(user, app.get('JWT_SECRET')),
-        //   res: context.req.res
-        // });
+        const encodedToken = generateToken(
+          user,
+          app.get('JWT_SECRET')
+        );
+          console.log(`JWT: ${encodedToken}`);
+
+        setCookie({
+          tokenName: app.get('JWT_COOKIE_NAME'),
+          token: generateToken(user, app.get('JWT_SECRET')),
+          res: context.req.res
+        });
 
         return {
           id: user.id
@@ -56,6 +67,11 @@ module.exports = app => {
 
         //const valid = await bcrypt.compare(args.user.password, user.password);
         if (!valid || !user) throw 'User was not found.';
+
+        const encodedToken = generateToken(
+          user,
+          app.get('JWT_SECRET')
+        );
 
         /*
         setCookie({

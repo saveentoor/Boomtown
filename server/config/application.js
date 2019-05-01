@@ -52,6 +52,12 @@ module.exports = (app) => {
   app.set('PG_DB', process.env.PG_DB || 'boomtown');
   app.use(cookieParser());
 
+//added this in with Gary 
+  app.set('JWT_SECRET',   process.env.JWT_SECRET || 'keyboardcat')
+  app.set('JWT_COOKIE_NAME', 'bt-tokenn')
+
+  app.use(cookieParser());
+
   if (process.env.NODE_ENV === 'production') {
     const root = path.resolve(__dirname, '../public');
 
