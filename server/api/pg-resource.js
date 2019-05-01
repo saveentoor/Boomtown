@@ -13,7 +13,7 @@ module.exports = postgres => {
   return {
     async createUser({ fullname, email, password }) {
       const newUserInsert = {
-        text: '', 
+        text: 'INSERT INTO users (fullname, email, password) VALUES ($1, $2, $3) RETURNING *', 
         values: [fullname, email, password]
       };
       try {
@@ -32,7 +32,7 @@ module.exports = postgres => {
     },
     async getUserAndPasswordForVerification(email) {
       const findUserQuery = {
-        text: '', 
+        text: 'SELECT * FROM users WHERE email = $1', 
         values: [email]
       };
       try {
@@ -115,10 +115,10 @@ module.exports = postgres => {
               const attachingTagsToItems = {
                 text: `INSERT INTO itemtags(itemid, tagid) VALUES ${tagsQueryString(
                   [...tags],
-                  insertNewItem.rows[0].id,
+                  insertNewItem.rows[0].id,//attaches the tags to the item at the top of the list 
                   ''
                 )} `, 
-                values: tags.map(tag => tag.id)
+                values: tags.map(tag => tag.id)//to find out which tag we want, based on the array of the tag id's
               };
 
               client.query('COMMIT', err => {

@@ -7,8 +7,8 @@
  */
 const { ApolloError } = require('apollo-server-express');
 
-const jwt = require('jsonwebtoken');
-//const authMutations = require('./auth');
+//const jwt = require('jsonwebtoken');
+const authMutations = require('./auth');
 
 const { DateScalar } = require('../custom-types');
 
@@ -88,6 +88,7 @@ module.exports = app => {
       }
     },
     Mutation: {
+      ...authMutations(app),
       async addItem(parent, args, { pgResource }, info) {
         //image = await image;
         try {

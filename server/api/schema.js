@@ -56,7 +56,21 @@ module.exports = gql`
     tags: [Tag]
   }
 
-  type Mutation {
+  input SignupInput {
+    fullname: String!
+    email: String!
+    password: String!
+  }
+
+  input LoginInput {
+    email: String!
+    password: String!
+  }
+
+type Mutation {
+    login(user: LoginInput!): User!
+    logout: Boolean!
+    signup(user: SignupInput!): User!
     addItem(item: NewItemInput!): Item
   }
 `;
