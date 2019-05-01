@@ -33,7 +33,7 @@ function ButtonAppBar(props) {
           <Typography variant="subheading" color="inherit" className={classes.grow}>
             News
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">Share Something</Button>
         </Toolbar>
       </AppBar>
     </div>

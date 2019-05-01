@@ -1,7 +1,8 @@
 const styles = theme => ({
   grid: {
-    padding: 100
-  }
+    padding: 100,backgroundColor: '#212121'
+   },
+
   
 });
 
