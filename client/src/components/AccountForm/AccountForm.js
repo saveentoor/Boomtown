@@ -140,6 +140,13 @@ class AccountForm extends Component {
     );
   }
 }
+
+const refetchQueries = [
+  {
+    query: VIEWER_QUERY,
+  },
+];
+
 export default compose(
   graphql(SIGNUP_MUTATION, {
     name: 'signupMutation',
