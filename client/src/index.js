@@ -61,11 +61,11 @@ const App = () => {
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <ApolloProvider client={client}>
-      <ViwerProvider>
+      <ViewerProvider>
      <BrowserRouter>
      <Layout/>
      </BrowserRouter>
-     </ViwerProvider>
+     </ViewerProvider>
       </ApolloProvider>
     </MuiThemeProvider>
     </ReduxProvider> 
