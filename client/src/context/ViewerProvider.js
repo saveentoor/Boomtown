@@ -6,15 +6,17 @@ export const ViewerContext = React.createContext();
 
 export const ViewerProvider = ({ children }) => {
 
-  return(
-   <Query  query= {VIEWER_QUERY}>
-   {({ data, loading }) => {
-     const viewer = data && data.viewer ? data.viewer : null;
-     return (
-       <ViewerContext.Provider value = {{ viewer, loading }}>
-       {children}
-       </ViewerContext.Provider>
-     )
-   }}
-   </Query>);
+  return (
+    <Query query={VIEWER_QUERY}>
+      {({ data, loading }) => {
+        const viewer = data && data.viewer ? data.viewer : null;
+        console.log(viewer);
+        return (
+          <ViewerContext.Provider value={{ viewer, loading }}>
+            {children}
+          </ViewerContext.Provider>
+        );
+      }}
+    </Query>
+  );
 };

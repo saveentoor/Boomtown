@@ -146,16 +146,18 @@ const refetchQueries = [
     query: VIEWER_QUERY,
   },
 ];
-
 export default compose(
   graphql(SIGNUP_MUTATION, {
+    options: {
+      refetchQueries,
+    },
     name: 'signupMutation',
   }),
   graphql(LOGIN_MUTATION, {
+    options: {
+      refetchQueries,
+    },
     name: 'loginMutation',
   }),
   withStyles(styles),
 )(AccountForm);
-
-// @TODO: Refetch the VIEWER_QUERY to reload the app and access authenticated routes.
-

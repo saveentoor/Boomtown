@@ -23,9 +23,7 @@ import client from './apollo';
  * have access to data exposed by your GraphQL API.
  */
 
-
- import Layout from './routes/Layout'
-
+import Layout from './routes/Layout';
 
 /**
  * @TODO: Initialize Redux Store
@@ -54,21 +52,21 @@ import Home from './pages/Home';
 // -------------------------------
 
 import './index.css';
-import store from './redux'
+import store from './redux';
 const App = () => {
   return (
-    <ReduxProvider store={store}> 
-    <MuiThemeProvider theme={theme}>
-      <CssBaseline />
-      <ApolloProvider client={client}>
-      <ViewerProvider>
-     <BrowserRouter>
-     <Layout/>
-     </BrowserRouter>
-     </ViewerProvider>
-      </ApolloProvider>
-    </MuiThemeProvider>
-    </ReduxProvider> 
+    <ReduxProvider store={store}>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        <ApolloProvider client={client}>
+          <ViewerProvider>
+            <BrowserRouter>
+              <Layout />
+            </BrowserRouter>
+          </ViewerProvider>
+        </ApolloProvider>
+      </MuiThemeProvider>
+    </ReduxProvider>
   );
 };
 
