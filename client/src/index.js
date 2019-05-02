@@ -9,6 +9,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 
 import registerServiceWorker from './registerServiceWorker';
 import theme from './theme';
+import { ViewerProvider } from './context/ViewerProvider';
 
 import client from './apollo';
 /**
@@ -41,7 +42,7 @@ import client from './apollo';
 /**
  * @TODO: Add the Viewer Context
  *
- * import { ViewerProvider } from './context/ViewerProvider'
+
  *
  * Below in your <App />, wrap the <ViewerProvider /> component around
  * the <BrowserRouter /> component so the router is aware of whether a
@@ -60,9 +61,11 @@ const App = () => {
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <ApolloProvider client={client}>
+      <ViwerProvider>
      <BrowserRouter>
      <Layout/>
      </BrowserRouter>
+     </ViwerProvider>
       </ApolloProvider>
     </MuiThemeProvider>
     </ReduxProvider> 

@@ -61,12 +61,13 @@ module.exports = app => {
         const user = await context.pgResource.getUserAndPasswordForVerification(//load user from dt
           args.user.email
         );
+        if (!user) throw 'User not found.';
         const valid = await bcrypt.compare(password, user.password);
         //const valid = user && user.password === password;
         // const valid = false;
 
         //const valid = await bcrypt.compare(args.user.password, user.password);
-        if (!valid || !user) throw 'User was not found.';
+        if (!valid || !user) throw 'User or password was not found.';
 
         const encodedToken = generateToken(
           user,
