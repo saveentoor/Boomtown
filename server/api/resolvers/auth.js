@@ -41,7 +41,7 @@ module.exports = app => {
 
         setCookie({
           tokenName: app.get('JWT_COOKIE_NAME'),
-          token: generateToken(user, app.get('JWT_SECRET')),
+          token: encodedToken,
           res: context.req.res
         });
 
@@ -73,15 +73,16 @@ module.exports = app => {
           app.get('JWT_SECRET')
         );
 
-        /*
         setCookie({
           tokenName: app.get('JWT_COOKIE_NAME'),
-          token: generateToken(user, app.get('JWT_SECRET')),
+          token: encodedToken,
           res: context.req.res
         });
-*/
+
         return {
-          id: user.id
+          id: user.id,
+          fullname: user.fullname,
+          email: user.email
         };
       } catch (e) {
         throw new AuthenticationError(e);

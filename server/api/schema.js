@@ -1,7 +1,9 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  type Item {
+
+  directive @auth on OBJECT | FIELD_DEFINITION
+  type Item @auth {
     id: ID!
     title: String!
     imageurl: String
@@ -12,7 +14,7 @@ module.exports = gql`
     borrower: User
   }
 
-  type User {
+  type User @auth {
     id: ID
     email: String
     fullname: String
@@ -71,6 +73,6 @@ type Mutation {
     login(user: LoginInput!): User!
     logout: Boolean!
     signup(user: SignupInput!): User!
-    addItem(item: NewItemInput!): Item
+    addItem(item: NewItemInput!): Item @auth
   }
 `;
