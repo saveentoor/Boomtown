@@ -6,21 +6,22 @@ import Share from '../pages/Share';
 import Profile from '../pages/Profile';
 import MenuBar from '../components/MenuBar';
 import { ViewerContext } from '../context/ViewerProvider';
-import FullScreenLoader from '../components/FullScreenLoader';
+import FullScreenLoader from '../components/FullscreenLoader';
 
 export default () => (
   <Fragment>
     <ViewerContext.Consumer>
-      {({ viewer, loading }) =>
-       {if (loading) return <FullScreenLoader />;
+      {({ viewer, loading }) => {
+        if (loading) return <FullScreenLoader />;
         if (!viewer) {
           return (
-          <Switch>
-            <Route path="/welcome" component={Home} />
-            <Redirect from="*" to="/welcome" />
-          </Switch>
-          )
-        } return (
+            <Switch>
+              <Route path="/welcome" component={Home} />
+              <Redirect from="*" to="/welcome" />
+            </Switch>
+          );
+        }
+        return (
           <Fragment>
             <MenuBar />
             <Switch>
@@ -31,9 +32,8 @@ export default () => (
               <Redirect from="*" to="/items" />
             </Switch>
           </Fragment>
-        )
-      }
-    }
+        );
+      }}
     </ViewerContext.Consumer>
   </Fragment>
 );

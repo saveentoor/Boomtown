@@ -1,3 +1,3 @@
-import FullScreenLoader from '../components/FullScreenLoader'
+import FullScreenLoader from './FullScreenLoader';
 
 export default FullScreenLoader;
