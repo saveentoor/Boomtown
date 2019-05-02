@@ -9,8 +9,14 @@ import MenuBar from '../components/MenuBar';
 
 export default () => (
   <Fragment>
-    {/* @TODO: Add your menu component here */}
-    {/* Exercise 2 on thursday */}
+     <ViewerContext.Consumer>
+      {({ viewer, loading }) => (
+        <Switch>
+          // ... Your routes
+          <Redirect from="*" to="/items" />
+        </Switch>
+      )}
+    </ViewerContext.Consumer>
 
     <Route  component={MenuBar} />
    
