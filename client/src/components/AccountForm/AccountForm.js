@@ -35,7 +35,8 @@ class AccountForm extends Component {
     const { classes } = this.props;
 
     return (
-      <Form />
+      <Form
+      render={() => (
       <form
         onSubmit={() => {
           console.log('Submitted');
@@ -45,8 +46,7 @@ class AccountForm extends Component {
         {!this.state.formToggle && (
           <FormControl fullWidth className={classes.formControl}>
             <InputLabel htmlFor="fullname">Username</InputLabel>
-            {<Field /> }
-
+             <Field /> 
             <Input
               id="fullname"
               type="text"
@@ -55,12 +55,12 @@ class AccountForm extends Component {
               }}
               value={''}
             />
-            {<Field /> }
+             <Field /> 
           </FormControl>
         )}
         <FormControl fullWidth className={classes.formControl}>
           <InputLabel htmlFor="email">Email</InputLabel>
-          {<Field /> }
+           <Field /> 
           <Input
             id="email"
             type="text"
@@ -69,7 +69,7 @@ class AccountForm extends Component {
             }}
             value={''}
           />
-          { <Field /> }
+          <Field /> 
         </FormControl>
         <FormControl fullWidth className={classes.formControl}>
           <InputLabel htmlFor="password">Password</InputLabel>
@@ -82,7 +82,7 @@ class AccountForm extends Component {
             }}
             value={''}
           />
-          { <Field /> }
+          <Field /> 
         </FormControl>
         <FormControl className={classes.formControl}>
           <Grid
@@ -125,7 +125,8 @@ class AccountForm extends Component {
           {/* @TODO: Display sign-up and login errors */}
         </Typography>
       </form>
-       <Form />
+       )}
+       />
     );
   }
 }
