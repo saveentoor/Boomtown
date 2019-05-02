@@ -13,10 +13,14 @@ const authMutations = require('./auth');
 const { DateScalar } = require('../custom-types');
 
 module.exports = app => {
+  // Upload: UploadScalar,
+  // Date: DateScalar,
   return {
-    //Date: DateScalar,
     Query: {
-      viewer() {
+      viewer(parent, args, context, info) {
+        if (context.token) {
+          return context.token;
+        }
         return null;
       },
       async user(parent, { id }, { pgResource }, info) {
