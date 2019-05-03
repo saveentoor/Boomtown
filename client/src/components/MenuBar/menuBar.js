@@ -56,10 +56,9 @@ class ButtonAppBar extends React.Component {
       >
         {(logoutMutation, { data }) => {
           return (
-            <AppBar position="static">
+            <AppBar position="static" className={classes.root}>
               <Toolbar className={classes.headerBar}>
                 <IconButton
-                  className={classes.root}
                   color="inherit"
                   aria-label="Menu"
                   component={Link}

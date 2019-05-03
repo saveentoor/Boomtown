@@ -14,7 +14,7 @@ const { DateScalar } = require('../custom-types');
 
 module.exports = app => {
   // Upload: UploadScalar,
-  // Date: DateScalar,
+  Date: DateScalar;
   return {
     Query: {
       viewer(parent, args, context, info) {
@@ -93,7 +93,7 @@ module.exports = app => {
     },
     Mutation: {
       ...authMutations(app),
-      async addItem(parent, {item}, context, info) {
+      async addItem(parent, { item }, context, info) {
         //image = await image;
         try {
           const user = context.token.id;

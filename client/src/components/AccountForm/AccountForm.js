@@ -68,15 +68,23 @@ class AccountForm extends Component {
               <InputLabel htmlFor="email">Email</InputLabel>
               <Field name="email">
                 {({ input, meta }) => (
-                  <Input
-                    id="email"
-                    type="text"
-                    inputProps={{
-                      ...input,
-                      autoComplete: 'off'
-                    }}
-                    value={input.value}
-                  />
+                  <React.Fragment>
+                    <Input
+                      id="email"
+                      type="text"
+                      inputProps={{
+                        ...input,
+                        autoComplete: 'off'
+                      }}
+                      value={input.value}
+                    />
+                    {meta.touched &&
+                      meta.invalid && (
+                        <div style={{ color: 'red', fontsize: '10px' }}>
+                          {meta.error}
+                        </div>
+                      )}
+                  </React.Fragment>
                 )}
               </Field>
             </FormControl>
@@ -84,15 +92,23 @@ class AccountForm extends Component {
               <InputLabel htmlFor="password">Password</InputLabel>
               <Field name="password">
                 {({ input, meta }) => (
-                  <Input
-                    id="password"
-                    type="password"
-                    inputProps={{
-                      ...input,
-                      autoComplete: 'off'
-                    }}
-                    value={input.value}
-                  />
+                  <React.Fragment>
+                    <Input
+                      id="password"
+                      type="password"
+                      inputProps={{
+                        ...input,
+                        autoComplete: 'off'
+                      }}
+                      value={input.value}
+                    />
+                    {meta.touched &&
+                      meta.invalid && (
+                        <div style={{ color: 'red', fontsize: '10px' }}>
+                          {meta.error}
+                        </div>
+                      )}
+                  </React.Fragment>
                 )}
               </Field>
             </FormControl>
@@ -134,10 +150,10 @@ class AccountForm extends Component {
             <Typography className={classes.errorMessage}>
               {(this.state.error &&
                 this.state.formToggle &&
-                this.state.error.graphQLErrors[0].message) ||
+                this.state.error.graphQLErrors.message) ||
                 (this.state.error &&
                   !this.state.formToggle &&
-                  this.state.error.graphQLErrors[0].message)}
+                  this.state.error.graphQLErrors.message)}
             </Typography>
           </form>
         )}
