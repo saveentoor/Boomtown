@@ -6,14 +6,14 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
-import { Form, Field } from 'react-final-form'
+import { Form, Field } from 'react-final-form';
 import {
   LOGIN_MUTATION,
   SIGNUP_MUTATION,
   VIEWER_QUERY
 } from '../../apollo/queries';
 import { graphql, compose } from 'react-apollo';
-import validate from './helpers/validation'
+import validate from './helpers/validation';
 import styles from './styles';
 class AccountForm extends Component {
   constructor(props) {
@@ -28,39 +28,38 @@ class AccountForm extends Component {
     return (
       <Form
         onSubmit={values => {
-          this.state.error =null;
+          this.setState({ error: null });
           const user = { variables: { user: values } };
           console.log(user);
-          this.state.formToggle ?
-          loginMutation(user).catch(error => this.setState({error}))
-          :signupMutation(user).catch(error => this.setState({error}));
+          this.state.formToggle
+            ? loginMutation(user).catch(error => this.setState({ error }))
+            : signupMutation(user).catch(error => this.setState({ error }));
         }}
         validate={validate.bind(this)}
         render={({ handleSubmit, pristine, invalid, submitting, form }) => (
-          <form
-            onSubmit={handleSubmit}
-            className={classes.accountForm}
-          >
+          <form onSubmit={handleSubmit} className={classes.accountForm}>
             {!this.state.formToggle && (
               <FormControl fullWidth className={classes.formControl}>
                 <InputLabel htmlFor="fullname">Username</InputLabel>
                 <Field name="fullname">
                   {({ input, meta }) => (
-                    <Input
-                      id="fullname"
-                      type="text"
-                      inputProps={{
-                        ...input,
-                        autoComplete: 'off'
-                      }}
-                      value={input.value}
-                      
-                    />
-                    // {meta.touched && meta.invalid && (
-                    //   <div style={{ color: 'red', fontsize: '10px'}} >
-                    //   {meta.error}
-                    //   </div>
-                    // )}
+                    <React.Fragment>
+                      <Input
+                        id="fullname"
+                        type="text"
+                        inputProps={{
+                          ...input,
+                          autoComplete: 'off'
+                        }}
+                        value={input.value}
+                      />
+                      {meta.touched &&
+                        meta.invalid && (
+                          <div style={{ color: 'red', fontsize: '10px' }}>
+                            {meta.error}
+                          </div>
+                        )}
+                    </React.Fragment>
                   )}
                 </Field>
               </FormControl>
@@ -149,21 +148,21 @@ class AccountForm extends Component {
 
 const refetchQueries = [
   {
-    query: VIEWER_QUERY,
-  },
+    query: VIEWER_QUERY
+  }
 ];
 export default compose(
   graphql(SIGNUP_MUTATION, {
     options: {
-      refetchQueries,
+      refetchQueries
     },
-    name: 'signupMutation',
+    name: 'signupMutation'
   }),
   graphql(LOGIN_MUTATION, {
     options: {
-      refetchQueries,
+      refetchQueries
     },
-    name: 'loginMutation',
+    name: 'loginMutation'
   }),
-  withStyles(styles),
+  withStyles(styles)
 )(AccountForm);

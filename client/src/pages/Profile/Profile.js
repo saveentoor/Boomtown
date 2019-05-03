@@ -1,14 +1,17 @@
 import React, { Fragment } from 'react';
-import { CardContent, Card, Avatar, Typography } from '@material-ui/core';
 import Gravatar from 'react-gravatar';
 import ItemsCard from '../../components/ItemCard';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
 
 const Profile = ({ classes, profile }) => {
   return (
     <Fragment>
       <div>
         <Card>
-          {' '}
           <CardContent>
             <div>
               <Avatar>
@@ -16,6 +19,7 @@ const Profile = ({ classes, profile }) => {
               </Avatar>
               <Typography>{profile.fullname}</Typography>
             </div>
+
             <div>
               <Typography>
                 <span>{profile.items.length}</span>
@@ -44,5 +48,4 @@ const Profile = ({ classes, profile }) => {
     </Fragment>
   );
 };
-
 export default Profile;
