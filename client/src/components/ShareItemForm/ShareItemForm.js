@@ -69,7 +69,7 @@ class ShareItemForm extends Component {
       fileSelected: false
     });
   };
-  
+
   generateTagsText(tags, selected) {
     return tags
       .map(t => (selected.indexOf(t.id) > -1 ? t.title : false))
@@ -128,6 +128,17 @@ class ShareItemForm extends Component {
                         return '';
                       }}
                     />
+                    <Button
+                      variant="contained"
+                      type="file" //changed from submit to file
+                      className={classes.shareItemButton}
+                      color="primary"
+                      onClick={() => {
+                        this.fileInput.current.click();
+                      }}
+                    >
+                      Select an image
+                    </Button>
                     <Field
                       name="title"
                       render={({ input, meta }) => {
@@ -169,45 +180,17 @@ class ShareItemForm extends Component {
                         </div>
                       )}
                     />
-                    {/* { <Field
-                      name="tags"
-                      render={({ classes, meta }) => (
-                        <FormControl fullWidth>
-                          <InputLabel htmlFor="tagid">Add Tags</InputLabel>
-                          <Select
-                            multiple
-                            value={this.state.selectedTags}
-                            onChange={this.handleChange}
-                            renderValue={selected => {
-                             // return this.generateTagsText(tags, selected);
-                            }}
-                          >
-                            {tags &&
-                              tags.map(tag => (
-                                <MenuItem key={tag.id} value={tag.id}>
-                                  <Checkbox
-                                    checked={
-                                      this.state.selectedTags.indexOf(tag.id) >
-                                      -1
-                                    }
-                                  />
-                                  <ListItemText primary={tag.title} />
-                                </MenuItem>
-                              ))}
-                          </Select>
-                        </FormControl>
-                      )}
-                    /> } */}
-                
+
                     <Field name="tags">
-                        {({ input, meta }) => {
-                            
-                            
-                          return (
+                      {({ input, meta }) => {
+                        return (
+                          <FormControl fullWidth>
+                            <InputLabel htmlFor="tagid">add tags</InputLabel>
+
                             <Select
                               multiple
                               value={this.state.selectedTags}
-                              onChange={ this.handleChange}
+                              onChange={this.handleChange}
                               renderValue={selected => {
                                 return this.generateTagsText(tags, selected);
                               }}
@@ -218,7 +201,7 @@ class ShareItemForm extends Component {
                                     <Checkbox
                                       checked={
                                         this.state.selectedTags.indexOf(
-                                          tag.id,
+                                          tag.id
                                         ) > -1
                                       }
                                     />
@@ -226,9 +209,10 @@ class ShareItemForm extends Component {
                                   </MenuItem>
                                 ))}
                             </Select>
-                          );
-                        }}
-                      </Field>
+                          </FormControl>
+                        );
+                      }}
+                    </Field>
 
                     <div>
                       <Button

@@ -54,7 +54,13 @@ class AccountForm extends Component {
                         autoComplete: 'off'
                       }}
                       value={input.value}
+                      
                     />
+                    // {meta.touched && meta.invalid && (
+                    //   <div style={{ color: 'red', fontsize: '10px'}} >
+                    //   {meta.error}
+                    //   </div>
+                    // )}
                   )}
                 </Field>
               </FormControl>
