@@ -22,7 +22,7 @@
     "apollo-link-http": "^1.5.4",
     "final-form": "^4.8.2",
     "graphql": "^14.2.1",
-    "graphql-tag": "^2.9.2",
+    "graphql-tag": "^2.10.1",
     "moment": "^2.22.2",
     "react": "^16.4.1",
     "react-apollo": "^2.1.5",

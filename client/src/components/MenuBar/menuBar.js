@@ -20,8 +20,10 @@ import {
   MenuItem
 } from '@material-ui/core';
 import { LOGOUT_MUTATION, VIEWER_QUERY } from '../../apollo/queries';
+import { Mutation } from 'react-apollo';
 import { compose } from 'react-apollo';
 import { graphql } from 'graphql';
+import client from '../../apollo/';
 
 // const styles = {
 //   root: {
@@ -48,74 +50,71 @@ class ButtonAppBar extends React.Component {
     const { classes } = this.props;
     const { open } = this.state;
     return (
-      <div>
-        <AppBar position="static">
-          <Toolbar className={classes.headerBar}>
-            <IconButton
-              color="inherit"
-              aria-label="Menu"
-              component={Link}
-              to="/items"
-            >
-              <img src={logo} width="40" />
-            </IconButton>
-            <div className={classes.shareButton}>
-              <Button color="inherit" component={Link} to="/share">
-                <AddCircle />Share Something
-              </Button>
-              <Button color="inherit" aria-label="Menu">
-                {' '}
-                <MoreVert />
-              </Button>
-              <Popper open={open} anchorEl={this.anchorEl} transition>
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    id="rightButton"
-                    style={{
-                      transformOrigin:
-                        placement === 'bottom' ? 'center top' : 'center bottom'
-                    }}
-                  >
-                    <Paper>
-                      <ClickAwayListener onClickAway={this.handleclose} />
-                      <MenuList>
-                        <MenuItem
-                          component={Link}
-                          to={`/profile/${this.props.user.id}`}
-                        >
-                          <Fingerprint />
-                          Profile
-                        </MenuItem>
-                      </MenuList>
-                      {/* <MenuItem onClick={this.logoutMutation} /> */}
-                    </Paper>
-                  </Grow>
-                )}
-              </Popper>
-            </div>
-          </Toolbar>
-        </AppBar>
-      </div>
+      <Mutation
+        mutation={LOGOUT_MUTATION}
+        onCompleted={() => client.resetStore()}
+      >
+        {(logoutMutation, { data }) => {
+          return (
+            <AppBar position="static">
+              <Toolbar className={classes.headerBar}>
+                <IconButton
+                  className={classes.root}
+                  color="inherit"
+                  aria-label="Menu"
+                  component={Link}
+                  to="/items"
+                >
+                  <img src={logo} width="40" />
+                </IconButton>
+                <div className={classes.grow} />
+                <div className={classes.shareButton}>
+                  <Button color="inherit" component={Link} to="/share">
+                    <AddCircle />Share Something
+                  </Button>
+                  <Button color="inherit" aria-label="Menu">
+                    <MoreVert />
+                  </Button>
+                  <Popper open={open} anchorEl={this.anchorEl} transition>
+                    {({ TransitionProps, placement }) => (
+                      <Grow
+                        {...TransitionProps}
+                        id="rightButton"
+                        style={{
+                          transformOrigin:
+                            placement === 'bottom'
+                              ? 'center top'
+                              : 'center bottom'
+                        }}
+                      >
+                        <Paper>
+                          <ClickAwayListener onClickAway={this.handleclose} />
+                          <MenuList>
+                            <MenuItem
+                              component={Link}
+                              to={`/profile/${this.props.user.id}`}
+                            >
+                              <Fingerprint />
+                              Profile
+                            </MenuItem>
+                          </MenuList>
+                          <MenuItem onClick={logoutMutation} />
+                        </Paper>
+                      </Grow>
+                    )}
+                  </Popper>
+                </div>
+              </Toolbar>
+            </AppBar>
+          );
+        }}
+      </Mutation>
     );
   }
 }
 
-// ButtonAppBar.propTypes = {
-//   classes: PropTypes.object.isRequired
-// };
-// const refetchQueries = [
-//   {
-//     query: VIEWER_QUERY
-//   }
-// ];
-
-// export default compose(
-//   graphql(LOGOUT_MUTATION, {
-//     options: { refetchQueries },
-//     name: 'logoutMutation'
-//   }),
-//   withStyles(styles)(ButtonAppBar)
-// );
+ButtonAppBar.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
 export default withStyles(styles)(ButtonAppBar);

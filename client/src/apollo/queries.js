@@ -90,16 +90,17 @@ export const ADD_ITEM_MUTATION = gql`
   }
 `;
 
- export const VIEWER_QUERY = gql`
-   query {
-     viewer {
-        id
-        email
-        fullname
-        bio
-      }
-   }
- `;
+export const VIEWER_QUERY = gql`
+  query {
+    viewer {
+      id
+      email
+      fullname
+      bio
+    }
+  }
+`;
+
 export const LOGOUT_MUTATION = gql`
   mutation {
     logout
@@ -108,8 +109,8 @@ export const LOGOUT_MUTATION = gql`
 
 export const SIGNUP_MUTATION = gql`
   mutation signup($user: SignupInput!) {
-    signup (user: $user) {
-        id
+    signup(user: $user) {
+      id
     }
   }
 `;
@@ -119,6 +120,5 @@ export const LOGIN_MUTATION = gql`
     login(user: $user) {
       id
     }
-    
   }
 `;

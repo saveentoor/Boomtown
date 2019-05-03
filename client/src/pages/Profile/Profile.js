@@ -8,14 +8,15 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 
 const Profile = ({ classes, profile }) => {
+  console.log('profile', profile);
   return (
-    <Fragment>
-      <div>
+    profile && (
+      <Fragment>
         <Card>
           <CardContent>
             <div>
               <Avatar>
-                <Gravatar email={profile.email} />
+                <Gravatar email={profile && profile.email} />
               </Avatar>
               <Typography>{profile.fullname}</Typography>
             </div>
@@ -31,21 +32,21 @@ const Profile = ({ classes, profile }) => {
             </div>
           </CardContent>
         </Card>
-      </div>
 
-      <div>
-        <Typography> Shared Items</Typography>
-      </div>
-      <Grid container className={classes.profileGrid}>
-        {profile.items.map(item => {
-          return (
-            <Grid item xs={12} sm={6} md={4} key={item.id}>
-              <ItemsCard item={item} />
-            </Grid>
-          );
-        })}
-      </Grid>
-    </Fragment>
+        <div>
+          <Typography> Shared Items</Typography>
+        </div>
+        <Grid container className={classes.profileGrid}>
+          {profile.items.map(item => {
+            return (
+              <Grid item xs={12} sm={6} md={4} key={item.id}>
+                <ItemsCard item={item} />
+              </Grid>
+            );
+          })}
+        </Grid>
+      </Fragment>
+    )
   );
 };
 export default Profile;
