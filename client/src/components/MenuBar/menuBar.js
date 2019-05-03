@@ -8,38 +8,114 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import logo from '../../images/boomtown.svg';
+import { Link, withRouter } from 'react-router-dom';
+import { MoreVert, AddCircle, Fingerprint } from '@material-ui/icons';
+import styles from './style';
+import {
+  Popper,
+  Paper,
+  Grow,
+  ClickAwayListener,
+  MenuList,
+  MenuItem
+} from '@material-ui/core';
+import { LOGOUT_MUTATION, VIEWER_QUERY } from '../../apollo/queries';
+import { compose } from 'react-apollo';
+import { graphql } from 'graphql';
 
-const styles = {
-  root: {
-    flexGrow: 1,
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-};
+// const styles = {
+//   root: {
+//     flexGrow: 1
+//   },
+//   grow: {
+//     flexGrow: 1
+//   },
+//   menuButton: {
+//     marginLeft: -12,
+//     marginRight: 20
+//   }
+// };
 
-function ButtonAppBar(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-            <img src={logo} width="40"/>
-          </IconButton>
-          <Button color="inherit">Share Something</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );   
+class ButtonAppBar extends React.Component {
+  state = {
+    open: false
+  };
+  handleclose = event => {
+    this.setState(state => ({ open: !state.open }));
+  };
+
+  render() {
+    const { classes } = this.props;
+    const { open } = this.state;
+    return (
+      <div>
+        <AppBar position="static">
+          <Toolbar className={classes.headerBar}>
+            <IconButton
+              color="inherit"
+              aria-label="Menu"
+              component={Link}
+              to="/items"
+            >
+              <img src={logo} width="40" />
+            </IconButton>
+            <div className={classes.shareButton}>
+              <Button color="inherit" component={Link} to="/share">
+                <AddCircle />Share Something
+              </Button>
+              <Button color="inherit" aria-label="Menu">
+                {' '}
+                <MoreVert />
+              </Button>
+              <Popper open={open} anchorEl={this.anchorEl} transition>
+                {({ TransitionProps, placement }) => (
+                  <Grow
+                    {...TransitionProps}
+                    id="rightButton"
+                    style={{
+                      transformOrigin:
+                        placement === 'bottom' ? 'center top' : 'center bottom'
+                    }}
+                  >
+                    <Paper>
+                      <ClickAwayListener onClickAway={this.handleclose} />
+                      <MenuList>
+                        <MenuItem
+                          component={Link}
+                          to={`/profile/${this.props.user.id}`}
+                        >
+                          <Fingerprint />
+                          Profile
+                        </MenuItem>
+                      </MenuList>
+                      {/* <MenuItem onClick={this.logoutMutation} /> */}
+                    </Paper>
+                  </Grow>
+                )}
+              </Popper>
+            </div>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 }
 
-ButtonAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+// ButtonAppBar.propTypes = {
+//   classes: PropTypes.object.isRequired
+// };
+// const refetchQueries = [
+//   {
+//     query: VIEWER_QUERY
+//   }
+// ];
+
+// export default compose(
+//   graphql(LOGOUT_MUTATION, {
+//     options: { refetchQueries },
+//     name: 'logoutMutation'
+//   }),
+//   withStyles(styles)(ButtonAppBar)
+// );
 
 export default withStyles(styles)(ButtonAppBar);
