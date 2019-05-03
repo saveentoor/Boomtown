@@ -1,7 +1,7 @@
 const styles = theme => ({
     sharePage: {
-        padding: 70
-        
+        padding: 80
+
     }
     
 });
