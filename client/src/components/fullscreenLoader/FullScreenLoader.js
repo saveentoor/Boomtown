@@ -1,7 +1,13 @@
 import React from 'react';
-import Loader from 'react-loader-spinner';
-export default class FullScreenLoader extends React.Component {
-  render() {
-    return <Loader type="Puff" color="#00BFFF" height="100" width="100" />;
-  }
+import styles from './styles';
+import { withStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+function FullScreenLoader({ classes }) {
+  return (
+    <div className={classes.container}>
+      <CircularProgress className={classes.progress} color="secondary" />
+    </div>
+  );
 }
+export default withStyles(styles)(FullScreenLoader);

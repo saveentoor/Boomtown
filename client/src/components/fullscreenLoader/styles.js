@@ -1,10 +1,9 @@
 const styles = theme => ({
   container: {
     display: 'flex',
+    flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%'
+    alignContent: 'center'
   }
 });
 export default styles;

@@ -5,6 +5,7 @@ import { Mutation } from 'react-apollo';
 import validate from './helpers/validation';
 import { ADD_ITEM_MUTATION, ALL_ITEMS_QUERY } from '../../apollo/queries';
 import styles from './styles';
+//import {withRouter} from '.'
 import {
   updateItem,
   resetItem,
@@ -27,12 +28,12 @@ import {
 class ShareItemForm extends Component {
   constructor(props) {
     super(props);
+    this.fileInput = React.createRef();
     this.state = {
       fileSelected: false,
       done: false,
       selectedTags: []
     };
-    this.fileInput = React.createRef();
   }
   applyTags(tags) {
     //converts an array of objects into a array of text
@@ -90,6 +91,30 @@ class ShareItemForm extends Component {
       tags: this.applyTags(tags)
     });
   }
+  triggerInputFile = () => this.fileInput.current.click();
+
+  saveItem = async (values, tags, addItemMutation) => {
+    try {
+      const newItem = { ...values, tags: this.applyTags(tags) };
+      await addItemMutation({ variables: { item: newItem } });
+    } catch (e) {
+      throw Error(e);
+    }
+  };
+
+  triggerInputImage = () => {
+    if (!this.state.fileSelected) {
+      this.fileInput.current.click();
+    } else {
+      this.resetFileInput();
+    }
+  };
+
+  handleSelectFile = event => {
+    this.setState({
+      fileSelected: this.fileInput.current.files[0]
+    });
+  };
 
   render() {
     const { classes, tags, updateItem, resetItem } = this.props;
@@ -103,17 +128,19 @@ class ShareItemForm extends Component {
             return (
               <Form
                 onSubmit={values => {
-                  this.saveItem(values); //tags
+                  this.saveItem(values, tags, addItemMutation); //tags
                 }}
                 validate={values => {
                   return validate(values, this.state.selectedTags);
                 }}
                 render={({ handleSubmit, pristine, invalid, form, values }) => (
                   <form
+                    onSubmit={handleSubmit}
                     onSubmit={event => {
                       handleSubmit(event).then(() => {
                         form.reset();
                         this.fileInput.current.value = '';
+                        this.setState({ fileSelected: false });
                         this.setState({ selectedTags: [] });
                         resetItem();
                       });
@@ -128,17 +155,32 @@ class ShareItemForm extends Component {
                         return '';
                       }}
                     />
-                    <Button
-                      variant="contained"
-                      type="file" //changed from submit to file
-                      className={classes.shareItemButton}
-                      color="primary"
-                      onClick={() => {
-                        this.fileInput.current.click();
-                      }}
-                    >
-                      Select an image
-                    </Button>
+
+                    <Field
+                      name="imageurl"
+                      render={({ input, meta }) => (
+                        <div>
+                          <Button
+                          fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.longItem}
+                            onClick={this.triggerInputImage}
+                          >
+                            {this.state.fileSelected
+                              ? 'RESET'
+                              : 'SELECT AN IMAGE'}
+                          </Button>
+                          <input
+                            ref={this.fileInput}
+                            type="file"
+                            style={{ display: 'none' }}
+                            onChange={e => this.handleSelectFile(e)}
+                          />
+                        </div>
+                      )}
+                    />
+
                     <Field
                       name="title"
                       render={({ input, meta }) => {
@@ -185,7 +227,9 @@ class ShareItemForm extends Component {
                       {({ input, meta }) => {
                         return (
                           <FormControl fullWidth>
-                            <InputLabel htmlFor="tagid">add tags</InputLabel>
+                            <InputLabel htmlFor="tagid">
+                              Add some tags
+                            </InputLabel>
 
                             <Select
                               multiple
@@ -217,7 +261,7 @@ class ShareItemForm extends Component {
                     <div>
                       <Button
                         variant="contained"
-                        type="file" //changed from submit to file
+                        type="submit" //changed from submit to file
                         className={classes.shareItemButton}
                         color="primary"
                       >

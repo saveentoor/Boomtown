@@ -1,93 +1,105 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import logo from '../../images/boomtown.svg';
-import { Link, withRouter } from 'react-router-dom';
-import { MoreVert, AddCircle, Fingerprint } from '@material-ui/icons';
-import styles from './style';
 import {
-  Popper,
-  Paper,
+  withStyles,
+  Button,
+  IconButton,
+  AppBar,
+  Toolbar,
   Grow,
+  Paper,
+  Popper,
   ClickAwayListener,
+  MenuItem,
   MenuList,
-  MenuItem
+  Grid,
+  Slide
 } from '@material-ui/core';
+import { Link, withRouter } from 'react-router-dom';
+import logo from '../../images/boomtown.svg';
 import { LOGOUT_MUTATION, VIEWER_QUERY } from '../../apollo/queries';
-import { Mutation } from 'react-apollo';
-import { compose } from 'react-apollo';
-import { graphql } from 'graphql';
-import client from '../../apollo/';
+import { graphql, compose } from 'react-apollo';
+import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
+import Fingerprint from '@material-ui/icons/Fingerprint';
+import MoreVert from '@material-ui/icons/MoreVert';
+import AddCircle from '@material-ui/icons/AddCircle';
+import PropTypes from 'prop-types';
+import styles from './style';
 
-// const styles = {
-//   root: {
-//     flexGrow: 1
-//   },
-//   grow: {
-//     flexGrow: 1
-//   },
-//   menuButton: {
-//     marginLeft: -12,
-//     marginRight: 20
-//   }
-// };
-
-class ButtonAppBar extends React.Component {
+class MenuBar extends React.Component {
   state = {
     open: false
   };
-  handleclose = event => {
+
+  handleToggle = () => {
     this.setState(state => ({ open: !state.open }));
   };
 
+  handleClose = event => {
+    if (this.anchorEl.contains(event.target)) {
+      return;
+    }
+
+    this.setState({ open: false });
+  };
+
   render() {
-    const { classes } = this.props;
+    const { classes, location } = this.props;
     const { open } = this.state;
     return (
-      <Mutation
-        mutation={LOGOUT_MUTATION}
-        onCompleted={() => client.resetStore()}
-      >
-        {(logoutMutation, { data }) => {
-          return (
-            <AppBar position="static" className={classes.root}>
-              <Toolbar className={classes.headerBar}>
-                <IconButton
-                  color="inherit"
-                  aria-label="Menu"
-                  component={Link}
-                  to="/items"
-                >
-                  <img src={logo} width="40" />
+      <div className={classes.root}>
+        <Grid container>
+          <AppBar position="static" color="primary">
+            <Toolbar>
+              <Grid item xs={9}>
+                <IconButton component={Link} to="/">
+                  <img src={logo} width="30px" alt="Boomtown logo" />
                 </IconButton>
-                <div className={classes.grow} />
-                <div className={classes.shareButton}>
-                  <Button color="inherit" component={Link} to="/share">
-                    <AddCircle />Share Something
+              </Grid>
+
+              <Grid item xs={2}>
+                <Slide //to hide share button
+                  direction="left"
+                  in={location.pathname !== '/share'}//to make it stay on the screen
+                  mountOnEnter//on user entering the page, active this 
+                  unmountOnExit
+                >
+                  <Button component={Link} to="/share">
+                    <AddCircle />
+                    Share an Item
                   </Button>
-                  <Button color="inherit" aria-label="Menu">
-                    <MoreVert />
-                  </Button>
-                  <Popper open={open} anchorEl={this.anchorEl} transition>
-                    {({ TransitionProps, placement }) => (
-                      <Grow
-                        {...TransitionProps}
-                        id="rightButton"
-                        style={{
-                          transformOrigin:
-                            placement === 'bottom'
-                              ? 'center top'
-                              : 'center bottom'
-                        }}
-                      >
-                        <Paper>
-                          <ClickAwayListener onClickAway={this.handleclose} />
+                </Slide>
+              </Grid>
+
+              <Grid item xs={1}>
+                <Button
+                  buttonRef={node => {
+                    this.anchorEl = node;
+                  }}
+                  aria-owns={open ? 'menu-list-grow' : undefined}
+                  aria-haspopup="true"
+                  onClick={this.handleToggle}
+                >
+                  <MoreVert />
+                </Button>
+                <Popper
+                  open={open}
+                  anchorEl={this.anchorEl}
+                  transition
+                  disablePortal
+                >
+                  {({ TransitionProps, placement }) => (
+                    <Grow
+                      {...TransitionProps}
+                      id="menu-list-grow"
+                      style={{
+                        transformOrigin:
+                          placement === 'bottom'
+                            ? 'center top'
+                            : 'center bottom'
+                      }}
+                    >
+                      <Paper>
+                        <ClickAwayListener onClickAway={this.handleClose}>
                           <MenuList>
                             <MenuItem
                               component={Link}
@@ -96,24 +108,42 @@ class ButtonAppBar extends React.Component {
                               <Fingerprint />
                               Profile
                             </MenuItem>
+                            <MenuItem onClick={this.props.logoutMutation}>
+                              <PowerSettingsNew />
+                              Logout
+                            </MenuItem>
                           </MenuList>
-                          <MenuItem onClick={logoutMutation} />
-                        </Paper>
-                      </Grow>
-                    )}
-                  </Popper>
-                </div>
-              </Toolbar>
-            </AppBar>
-          );
-        }}
-      </Mutation>
+                        </ClickAwayListener>
+                      </Paper>
+                    </Grow>
+                  )}
+                </Popper>
+              </Grid>
+            </Toolbar>
+          </AppBar>
+        </Grid>
+      </div>
     );
   }
 }
 
-ButtonAppBar.propTypes = {
-  classes: PropTypes.object.isRequired
+MenuBar.propTypes = {
+  classes: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ButtonAppBar);
+const refetchQueries = [
+  {
+    query: VIEWER_QUERY
+  }
+];
+export default compose(
+  graphql(LOGOUT_MUTATION, {
+    options: {
+      refetchQueries
+    },
+    name: 'logoutMutation'
+  }),
+  withStyles(styles),
+  withRouter
+)(MenuBar);
