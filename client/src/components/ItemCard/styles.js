@@ -37,7 +37,8 @@ const styles = theme => ({
     flexDirection: 'column'
   },
   cardMedia: {
-    paddingTop: '56.25%' // 16:9
+    paddingTop: '56.25%', // 16:9
+    height: 300,
   },
   cardContent: {
     flexGrow: 1
@@ -59,7 +60,8 @@ const styles = theme => ({
   },
   button: {
     border: 1,
-    color: 'black'
+    color: 'black',
+    
   },
   itemownerContainer: {
     display: 'flex',
@@ -74,8 +76,17 @@ const styles = theme => ({
     justifyContent: 'center'
   },
   cardAction: {
-    alignItem: 'flex-end'
+    alignItem: 'flex-end',
+  },
+  button: {
+    position: 'absolute',
+    color: 'black',
+    width: 100,
+    paddingTop: 15,
+    paddingBottom: 15,
   }
+
+
 });
 
 export default styles;

@@ -78,7 +78,6 @@ class ShareItemForm extends Component {
       .join(', ');
   }
   dispatchUpdate(values, tags, updateNewItem) {
-    console.log(values);
     if (!values.imageurl && this.state.fileSelected) {
       this.getBase64Url().then(imageurl => {
         updateNewItem({

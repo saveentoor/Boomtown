@@ -9,6 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 
 const Profile = ({ classes, profile }) => {
   return (
+    <Card className={classes.profileCardContainer}>
     <Fragment>
       <Card>
         <CardContent>
@@ -45,6 +46,7 @@ const Profile = ({ classes, profile }) => {
           })}
       </Grid>
     </Fragment>
+    </Card>
   );
 };
 export default Profile;

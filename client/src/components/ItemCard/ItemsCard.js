@@ -46,7 +46,12 @@ const ItemsCard = ({ classes, item }) => {
         </CardContent>
       </Fragment>
       <CardActions  className={classes.cardAction} >
-        <Button className={classes.button} size="small" color="primary">
+      <Button
+          className={classes.button}
+          variant="outlined"
+          size="small"
+          color="primary"
+        >
           Borrow
         </Button>
       </CardActions>

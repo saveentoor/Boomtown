@@ -1,40 +1,38 @@
 # Boomtown 🏙
-Boomtown is a fully functional web-based application to support a local sharing economy. It was built using React, Redux, and Graphql. Boomtown allows users to share their items and borrow from other users. 
+Boomtown is a fully functional web-based application to support a local sharing economy. It was built using React, Redux, and Graphql. Boomtown allows users to share their items and allows them to borrow from other users. 
 
-## Server
+## Getting Started
+Download or clone git repo. Run
+clients/npm install && npm start
+server/npm install && npm run start:dev
 
-Commands must be run from the `server` directory:
+### Prerequisites
+You will need a Postgres server with the content matching the config files in Server. This repo may be updated to include this in the future
 
-### Installation
+  app.set('Port_HOST', process.env.PG_HOST || 'localhost');
+  app.set('PG_USER', process.env.PG_USER || 'boomtown');
+  app.set('PG_PASSWORD', process.env.PG_PASSWORD || '**** YOUR PASSWORD');
+  app.set('PG_DB', process.env.PG_DB || ‘boomtown’);
+  app.set('PGPORT' , process.env.PGPORT || '8080');
 
-```bash
-npm install
-```
+##Installing
+Install client / server npm packages. Install / create Boomtown Postgres server. Run npm start in both client / server folders. Open localhost:3000 Sign in
 
-### Run
+## Built With:
+* React
+* Redux
+* Node.js
+* Apollo Server
+* Postgres
+* Firebase
+* GraphQL
+* Material-ui
 
-```bash
-npm run start:dev
-```
+## Personal learning:
+Learned about building an app with both client-side and server-side
+Learned about higher order components, components, storing initial states, props, dispatching actions and reducers.
+Applied best practices when making decisions about what logic to 
+Learned how to authenticate a user using Firebase tokens. implement on client-side versus server-side.
+Learned how to write resolver functions, data schemas and make queries for data and using GraphiQL to test the queries.
+Learned how to protect routes when user is not in an authenticated state.
 
-## Client
-
-Commands must be run from the `client` directory:
-
-### Installation
-
-```bash
-npm install
-```
-
-### Run
-
-```bash
-npm start
-```
-
-### Build
-
-```bash
-npm run build
-```
