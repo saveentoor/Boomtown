@@ -128,23 +128,21 @@ class ShareItemForm extends Component {
             return (
               <Form
                 onSubmit={values => {
-                  this.saveItem(values, tags, addItemMutation); //tags
+                  this.saveItem(values, tags, addItemMutation).then(() => {
+                    //form.reset();
+                    this.fileInput.current.value = '';
+                    this.setState({ fileSelected: false });
+                    this.setState({ selectedTags: [] });
+                    resetItem();
+                  }); //tags
                 }}
+              
                 validate={values => {
                   return validate(values, this.state.selectedTags);
                 }}
                 render={({ handleSubmit, pristine, invalid, form, values }) => (
                   <form
                     onSubmit={handleSubmit}
-                    onSubmit={event => {
-                      handleSubmit(event).then(() => {
-                        form.reset();
-                        this.fileInput.current.value = '';
-                        this.setState({ fileSelected: false });
-                        this.setState({ selectedTags: [] });
-                        resetItem();
-                      });
-                    }}
                   >
                     <FormSpy
                       subscription={{ values: true }}

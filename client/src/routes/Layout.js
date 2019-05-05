@@ -12,7 +12,7 @@ export default () => (
   <Fragment>
     <ViewerContext.Consumer>
       {({ viewer, loading }) => {
-        if (loading) return <FullScreenLoader />;//! in front of loading to test loader 
+        if (loading) return <FullScreenLoader />; //! in front of loading to test loader
         if (!viewer) {
           return (
             <Switch>
@@ -28,7 +28,7 @@ export default () => (
               <Route exact path="/items" component={Items} />
               <Route exact path="/share" component={Share} />
               <Route exact path="/profile" component={Profile} />
-              <Route exact path="/profile/user:id" component={Profile} />
+              <Route exact path="/profile/:userid" component={Profile} />
               <Redirect from="*" to="/items" />
             </Switch>
           </Fragment>

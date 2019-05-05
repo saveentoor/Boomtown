@@ -24,6 +24,7 @@ import MoreVert from '@material-ui/icons/MoreVert';
 import AddCircle from '@material-ui/icons/AddCircle';
 import PropTypes from 'prop-types';
 import styles from './style';
+import { ViewerContext } from '../../context/ViewerProvider';
 
 class MenuBar extends React.Component {
   state = {
@@ -45,84 +46,91 @@ class MenuBar extends React.Component {
   render() {
     const { classes, location } = this.props;
     const { open } = this.state;
+    console.log('app bar props', this.props);
     return (
-      <div className={classes.root}>
-        <Grid container>
-          <AppBar position="static" color="primary">
-            <Toolbar>
-              <Grid item xs={9}>
-                <IconButton component={Link} to="/">
-                  <img src={logo} width="30px" alt="Boomtown logo" />
-                </IconButton>
-              </Grid>
+      <ViewerContext.Consumer>
+        {({ viewer, loading }) => {
+          return (
+            <div className={classes.root}>
+              <Grid container>
+                <AppBar position="static" color="primary">
+                  <Toolbar>
+                    <Grid item xs={9}>
+                      <IconButton component={Link} to="/">
+                        <img src={logo} width="30px" alt="Boomtown logo" />
+                      </IconButton>
+                    </Grid>
 
-              <Grid item xs={2}>
-                <Slide //to hide share button
-                  direction="left"
-                  in={location.pathname !== '/share'}//to make it stay on the screen
-                  mountOnEnter//on user entering the page, active this 
-                  unmountOnExit
-                >
-                  <Button component={Link} to="/share">
-                    <AddCircle />
-                    Share an Item
-                  </Button>
-                </Slide>
-              </Grid>
+                    <Grid item xs={2}>
+                      <Slide //to hide share button
+                        direction="left"
+                        in={location.pathname !== '/share'} //to make it stay on the screen
+                        mountOnEnter //on user entering the page, active this
+                        unmountOnExit
+                      >
+                        <Button component={Link} to="/share">
+                          <AddCircle />
+                          Share an Item
+                        </Button>
+                      </Slide>
+                    </Grid>
 
-              <Grid item xs={1}>
-                <Button
-                  buttonRef={node => {
-                    this.anchorEl = node;
-                  }}
-                  aria-owns={open ? 'menu-list-grow' : undefined}
-                  aria-haspopup="true"
-                  onClick={this.handleToggle}
-                >
-                  <MoreVert />
-                </Button>
-                <Popper
-                  open={open}
-                  anchorEl={this.anchorEl}
-                  transition
-                  disablePortal
-                >
-                  {({ TransitionProps, placement }) => (
-                    <Grow
-                      {...TransitionProps}
-                      id="menu-list-grow"
-                      style={{
-                        transformOrigin:
-                          placement === 'bottom'
-                            ? 'center top'
-                            : 'center bottom'
-                      }}
-                    >
-                      <Paper>
-                        <ClickAwayListener onClickAway={this.handleClose}>
-                          <MenuList>
-                            <MenuItem
-                              component={Link}
-                              to={`/profile/${this.props.user.id}`}
-                            >
-                              <Fingerprint />
-                              Profile
-                            </MenuItem>
-                            <MenuItem onClick={this.props.logoutMutation}>
-                              <PowerSettingsNew />
-                              Logout
-                            </MenuItem>
-                          </MenuList>
-                        </ClickAwayListener>
-                      </Paper>
-                    </Grow>
-                  )}
-                </Popper>
+                    <Grid item xs={1}>
+                      <Button
+                        buttonRef={node => {
+                          this.anchorEl = node;
+                        }}
+                        aria-owns={open ? 'menu-list-grow' : undefined}
+                        aria-haspopup="true"
+                        onClick={this.handleToggle}
+                      >
+                        <MoreVert />
+                      </Button>
+                      <Popper
+                        open={open}
+                        anchorEl={this.anchorEl}
+                        transition
+                        disablePortal
+                      >
+                        {({ TransitionProps, placement }) => (
+                          <Grow
+                            {...TransitionProps}
+                            id="menu-list-grow"
+                            style={{
+                              transformOrigin:
+                                placement === 'bottom'
+                                  ? 'center top'
+                                  : 'center bottom'
+                            }}
+                          >
+                            <Paper>
+                              <ClickAwayListener onClickAway={this.handleClose}>
+                                <MenuList>
+                                  <MenuItem
+                                    component={Link}
+                                    to={`/profile/${viewer.id}`}
+                                  >
+                                    <Fingerprint />
+                                    Profile
+                                  </MenuItem>
+                                  <MenuItem onClick={this.props.logoutMutation}>
+                                    <PowerSettingsNew />
+                                    Logout
+                                  </MenuItem>
+                                </MenuList>
+                              </ClickAwayListener>
+                            </Paper>
+                          </Grow>
+                        )}
+                      </Popper>
+                    </Grid>
+                  </Toolbar>
+                </AppBar>
               </Grid>
-            </Toolbar>
-          </AppBar>
-        </Grid>
-      </div>
+            </div>
+          );
+        }}
+      </ViewerContext.Consumer>
     );
   }
 }

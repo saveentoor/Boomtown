@@ -9,6 +9,7 @@ import { ALL_USER_ITEMS_QUERY } from '../../apollo/queries';
 
 class ProfileContainer extends Component {
   render() {
+    //get userid fro url
     const id = this.props.match.params.userid;
 
     return (
@@ -16,7 +17,7 @@ class ProfileContainer extends Component {
         {({ loading, error, data }) => {
           // if (loading) return <FullScreenLoader inverted />;
           if (error) return <p>{`Error! ${error.message}`}</p>;
-
+          console.log(data);
           return <Profile classes={this.props.classes} profile={data.user} />;
         }}
       </Query>

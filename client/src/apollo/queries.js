@@ -52,7 +52,6 @@ export const ALL_ITEMS_QUERY = gql`
 export const ALL_USER_ITEMS_QUERY = gql`
   query user($id: ID!) {
     user(id: $id) {
-      id
       fullname
       email
       bio
