@@ -22,7 +22,9 @@ import {
   InputLabel,
   MenuItem,
   Checkbox,
-  Typography
+  Typography,
+
+
 } from '@material-ui/core/';
 
 class ShareItemForm extends Component {
@@ -115,7 +117,7 @@ class ShareItemForm extends Component {
     });
   };
 
-  render() {
+  render(form) {
     const { classes, tags, updateItem, resetItem } = this.props;
     return (
       <div>
@@ -128,21 +130,17 @@ class ShareItemForm extends Component {
               <Form
                 onSubmit={values => {
                   this.saveItem(values, tags, addItemMutation).then(() => {
-                    //form.reset();
                     this.fileInput.current.value = '';
                     this.setState({ fileSelected: false });
                     this.setState({ selectedTags: [] });
                     resetItem();
-                  }); //tags
+                  });
                 }}
-              
                 validate={values => {
                   return validate(values, this.state.selectedTags);
                 }}
                 render={({ handleSubmit, pristine, invalid, form, values }) => (
-                  <form
-                    onSubmit={handleSubmit}
-                  >
+                  <form onSubmit={handleSubmit}>
                     <FormSpy
                       subscription={{ values: true }}
                       component={({ values }) => {
@@ -158,7 +156,7 @@ class ShareItemForm extends Component {
                       render={({ input, meta }) => (
                         <div>
                           <Button
-                          fullWidth
+                            fullWidth
                             variant="contained"
                             color="primary"
                             className={classes.longItem}
@@ -188,6 +186,7 @@ class ShareItemForm extends Component {
                               label="Name Your Item"
                               multiline
                               fullWidth
+                              value={input.value}
                               margin="normal"
                               type="text"
                               {...input}
@@ -204,6 +203,7 @@ class ShareItemForm extends Component {
                             type="text"
                             {...input}
                             fullWidth
+                            value={input.value}
                             placeholder="Describe Your Item"
                             multiline
                             maxLength="6"
@@ -258,13 +258,14 @@ class ShareItemForm extends Component {
                     <div>
                       <Button
                         variant="contained"
-                        type="submit" //changed from submit to file
+                        type="submit"
                         className={classes.shareItemButton}
                         color="primary"
                       >
                         Share
                       </Button>
                     </div>
+                   
                   </form>
                 )}
               />

@@ -7,25 +7,27 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 
+import style from './styles';
+import { withStyles } from '@material-ui/core';
+
 const Profile = ({ classes, profile }) => {
   return (
-    <Card className={classes.profileCardContainer}>
-    <Fragment>
+    <div className={classes.profileCardContainer}>
       <Card>
-        <CardContent>
-          <div>
+        <CardContent className={classes.cardContent}>
+          <div className={classes.cardInfo}> 
             <Avatar>
               <Gravatar email={profile && profile.email} />
             </Avatar>
-            <Typography>{profile && profile.fullname}</Typography>
+            <Typography className={classes.fullName}>{profile && profile.fullname}</Typography>
           </div>
 
           <div>
-            <Typography>
-              <span>{profile && profile.items.length}</span>
-              items shared
-              <span>{profile && profile.borrowed.length}</span>
-              items borrowed
+            <Typography className={classes.profileInfo}>
+              <span className={classes.numberOfItems}>{profile && profile.items.length}{' '}</span>
+              Items shared
+              <span className={classes.numberOfItems}>{' '}{profile && profile.borrowed.length}{' '}</span>
+              Items borrowed
             </Typography>
             <p>{profile && profile.bio}</p>
           </div>
@@ -33,7 +35,8 @@ const Profile = ({ classes, profile }) => {
       </Card>
 
       <div>
-        <Typography> Shared Items</Typography>
+       
+        <Typography className ={classes.profileSharePage}> Shared Items</Typography>
       </div>
       <Grid container className={classes.profileGrid}>
         {profile &&
@@ -45,8 +48,7 @@ const Profile = ({ classes, profile }) => {
             );
           })}
       </Grid>
-    </Fragment>
-    </Card>
+    </div>
   );
 };
-export default Profile;
+export default withStyles(style)(Profile);

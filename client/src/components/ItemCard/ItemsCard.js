@@ -11,6 +11,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Gravatar from 'react-gravatar';
 import { Link, withRouter } from 'react-router-dom';
 import styles from './styles';
+import ItemCardDate from './ItemCardDate';
 
 const ItemsCard = ({ classes, item }) => {
   return (
@@ -21,32 +22,37 @@ const ItemsCard = ({ classes, item }) => {
           image={item.imageurl}
           title={item.title}
           component={Link}
-          to={`profile/${item.itemowner.id}`} //link to whatever we put in this
+          to={`profile/${item.itemowner.id}`}
         />
-        <CardContent> 
+        <CardContent>
           <div className={classes.itemownerContainer}>
             <div>
               <Avatar className={classes.avatar}>
                 {item.itemowner && <Gravatar email={item.itemowner.email} />}
               </Avatar>
             </div>
-            <div>
+            <div className={classes.userInfo}>
               <Typography className={classes.nameOfItemOwner}>
                 {item.itemowner.fullname}
               </Typography>
+              <Typography>{ItemCardDate(item.created)}</Typography>
             </div>
           </div>
-          <Typography className={classes.title} variant="display1">{item.title}</Typography>
+          <Typography className={classes.title} variant="display1">
+            {item.title}
+          </Typography>
 
-          <Typography className={classes.description} variant="display1">{item.description}</Typography>
+          <Typography className={classes.description} variant="display1">
+            {item.description}
+          </Typography>
 
           <Typography className={classes.tag} component="p">
             {item.tag ? item.tags.map(tag => tag.title).join(', ') : null}
           </Typography>
         </CardContent>
       </Fragment>
-      <CardActions  className={classes.cardAction} >
-      <Button
+      <CardActions className={classes.cardAction}>
+        <Button
           className={classes.button}
           variant="outlined"
           size="small"

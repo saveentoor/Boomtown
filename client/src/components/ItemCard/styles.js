@@ -11,7 +11,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper
   },
   heroContent: {
-    maxWidth: 600,
+    // maxWidth: 600,
     margin: '0 auto',
     padding: `${theme.spacing.unit * 8}px 0 ${theme.spacing.unit * 6}px`
   },
@@ -32,13 +32,12 @@ const styles = theme => ({
     padding: `${theme.spacing.unit * 8}px 0`
   },
   card: {
-    height: '100%',
     display: 'flex',
     flexDirection: 'column'
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
-    height: 300,
+    height: 300
   },
   cardContent: {
     flexGrow: 1
@@ -49,44 +48,43 @@ const styles = theme => ({
   },
   title: {
     fontSize: 22,
-    marginTop: 50
+    marginTop: 40,
+    color: 'black',
+    fontSize: 20,
   },
   description: {
     fontSize: 16,
-    height: 80
+    height: 80,
+    paddingTop: 10,
+    color: 'black',
   },
   tag: {
     fontSize: 12
   },
   button: {
     border: 1,
-    color: 'black',
-    
+    color: 'black'
   },
   itemownerContainer: {
     display: 'flex',
-
     flexDirection: 'row'
   },
   avatar: {
     margin: 5
   },
-  nameOfItemOwner: {
-    alignItem: 'center',
-    justifyContent: 'center'
-  },
+
   cardAction: {
-    alignItem: 'flex-end',
+    alignItem: 'flex-end'
   },
   button: {
-    position: 'absolute',
     color: 'black',
-    width: 100,
-    paddingTop: 15,
-    paddingBottom: 15,
+    width: 130,
+    paddingTop: 10,
+    marginBottom: 15,
+  },
+  userInfo: {
+    alignSelf: 'center'
   }
-
-
 });
 
 export default styles;

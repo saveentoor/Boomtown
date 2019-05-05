@@ -12,7 +12,7 @@ export default () => (
   <Fragment>
     <ViewerContext.Consumer>
       {({ viewer, loading }) => {
-        if (loading) return <FullScreenLoader />; //! in front of loading to test loader
+        if (loading) return <FullScreenLoader />; 
         if (!viewer) {
           return (
             <Switch>

@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 class ItemsContainer extends Component {
   render() {
     return (
-      // bottom filter current user id
+
       <Query query={ALL_ITEMS_QUERY} variables={{ filter: 1 }}>
         {({ loading, error, data }) => {
           if (loading) return <FullScreenLoader />;

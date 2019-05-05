@@ -61,9 +61,7 @@ module.exports = postgres => {
     },
     async getItems(idToOmit) {
       const items = await postgres.query({
-        text: `SELECT * FROM items ${idToOmit ? 'WHERE ownerid != $1' : ''}`, //making a second peramture to show a blank section or it would crash
-        //trying not to omit anything. 
-        //select all from items, filter by id to omit not being equal to one 
+        text: `SELECT * FROM items ${idToOmit ? 'WHERE ownerid != $1' : ''}`, 
         values: idToOmit ? [idToOmit] : []
       });
       return items.rows;

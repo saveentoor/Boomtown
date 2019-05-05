@@ -1,9 +1,12 @@
 const styles = theme => ({
   grid: {
-    padding: 100,backgroundColor: '#212121'
-   },
-
-  
+    padding: 120,
+    backgroundColor: '#212121',
+    flexGrow: 1
+  },
+  gridItem: {
+    marginTop: 15
+  }
 });
 
 export default styles;
