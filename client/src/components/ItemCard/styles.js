@@ -60,9 +60,6 @@ const styles = theme => ({
     paddingTop: 10,
     color: 'black',
   },
-  tag: {
-    fontSize: 12
-  },
   button: {
     border: 1,
     color: 'black'
