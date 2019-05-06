@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Field, FormSpy } from 'react-final-form';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 import validate from './helpers/validation';
 import { ADD_ITEM_MUTATION, ALL_ITEMS_QUERY } from '../../apollo/queries';

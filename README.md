@@ -44,3 +44,10 @@ You will need a Postgres server with the content matching the config files in Se
 - Learned how to authenticate a user using Firebase tokens.
 - Learned how to write resolver functions, data schemas and make queries for data and using GraphiQL to test the queries.
 - Learned how to protect routes when user is not in an authenticated state.
+
+**Contributors:**
+Saveen Toor
+
+### Screenshot
+
+<img src =‘insert screenshot here’>

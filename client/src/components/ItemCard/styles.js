@@ -1,4 +1,4 @@
-import { red } from '@material-ui/core/colors';
+
 
 const styles = theme => ({
   appBar: {
@@ -11,7 +11,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper
   },
   heroContent: {
-    // maxWidth: 600,
+    maxWidth: 600,
     margin: '0 auto',
     padding: `${theme.spacing.unit * 8}px 0 ${theme.spacing.unit * 6}px`
   },
@@ -33,10 +33,12 @@ const styles = theme => ({
   },
   card: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    height: 600,
+    width: 400,
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: '56.25%', 
     height: 300
   },
   cardContent: {

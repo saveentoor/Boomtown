@@ -46,7 +46,7 @@ class MenuBar extends React.Component {
   render() {
     const { classes, location } = this.props;
     const { open } = this.state;
-    console.log('app bar props', this.props);
+  
     return (
       <ViewerContext.Consumer>
         {({ viewer, loading }) => {

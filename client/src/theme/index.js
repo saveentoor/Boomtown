@@ -8,8 +8,5 @@ export default createMuiTheme({
     secondary: {
       main: '#212121'
     }
-    // background: {
-    // default: '#212121'
-    // }
   }
 });

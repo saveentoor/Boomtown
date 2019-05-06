@@ -1,19 +1,12 @@
-/**
- *  It will also help you control th error output of your resource methods and use error
- *  messages on the client! (More on that later).
- *
- *  The user resolver has been completed as an example of what you'll need to do.
- *  Finish of the rest of the resolvers when you're ready.
- */
+
 const { ApolloError } = require('apollo-server-express');
 
-//const jwt = require('jsonwebtoken');
+
 const authMutations = require('./auth');
 
 const { DateScalar } = require('../custom-types');
 
 module.exports = app => {
-  // Upload: UploadScalar,
   Date: DateScalar;
   return {
     Query: {
@@ -84,7 +77,7 @@ module.exports = app => {
       async borrower({ id }, args, { pgResource }) {
         try {
           const borrowerItemID = await pgResource.getBorrowedItemsForUser(id);
-          console.log('id', borrowerItemID);
+        
           return borrowerItemID;
         } catch (e) {
           throw new ApolloError(e);
@@ -94,13 +87,10 @@ module.exports = app => {
     Mutation: {
       ...authMutations(app),
       async addItem(parent, { item }, context, info) {
-        //image = await image;
         try {
           const user = context.token.id;
-          //const user = { id: '1' };
           const newItem = await context.pgResource.saveNewItem({
             item: item,
-            //image: args.image,
             user
           });
           return newItem;

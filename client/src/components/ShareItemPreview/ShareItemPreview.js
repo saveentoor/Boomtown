@@ -6,7 +6,7 @@ const ShareItemPreview = ({ shareItemPreview }) => {
   return (
     <ViewerContext.Consumer>
       {({ viewer, loading }) => {
-        console.log('viewer', viewer);
+      
         return (
           <ItemsCard
             item={{
