@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { Form, Field, FormSpy } from 'react-final-form';
-//import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 import validate from './helpers/validation';
 import { ADD_ITEM_MUTATION, ALL_ITEMS_QUERY } from '../../apollo/queries';
 import styles from './styles';
-//import {withRouter} from '.'
 import {
   updateItem,
   resetItem,
@@ -36,7 +34,6 @@ class ShareItemForm extends Component {
     };
   }
   applyTags(tags) {
-    //converts an array of objects into a array of text
     return (
       tags &&
       tags
@@ -47,10 +44,8 @@ class ShareItemForm extends Component {
 
   handleChange = event => {
     this.setState({ selectedTags: event.target.value });
-  
   };
   getBase64Url() {
-    //look over
     return new Promise(resolve => {
       const reader = new FileReader();
       reader.onload = e => {
@@ -64,7 +59,6 @@ class ShareItemForm extends Component {
     });
   }
   resetFileInput = () => {
-    //look over, have twice?
     this.fileInput.current.value = '';
     this.props.resetImage();
     this.setState({
@@ -95,10 +89,10 @@ class ShareItemForm extends Component {
 
   saveItem = async (values, tags, addItemMutation) => {
     try {
-      const newItem = { ...values, tags: this.applyTags(tags) 
-     
+      const newItem = {
+        ...values,
+        tags: this.applyTags(tags)
       };
-     
     } catch (e) {
       throw Error(e);
     }
@@ -141,7 +135,12 @@ class ShareItemForm extends Component {
                   return validate(values, this.state.selectedTags);
                 }}
                 render={({ handleSubmit, pristine, invalid, form, values }) => (
-                  <form onSubmit={(event)=>{handleSubmit(event);form.reset();}}>
+                  <form
+                    onSubmit={event => {
+                      handleSubmit(event);
+                      form.reset();
+                    }}
+                  >
                     <FormSpy
                       subscription={{ values: true }}
                       component={({ values }) => {
