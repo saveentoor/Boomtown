@@ -1,14 +1,29 @@
 import React from 'react';
 import ItemsCard from '../ItemCard';
 import { connect } from 'react-redux';
-
-const ShareItemPreview = ({shareItemPreview}) => {
-  return <ItemsCard item={shareItemPreview} />;
+import { ViewerContext } from '../../context/ViewerProvider';
+const ShareItemPreview = ({ shareItemPreview }) => {
+  return (
+    <ViewerContext.Consumer>
+      {({ viewer, loading }) => {
+        console.log('viewer', viewer);
+        return (
+          <ItemsCard
+            item={{
+              ...shareItemPreview,
+              itemowner: {
+                id: viewer.id,
+                fullname: viewer.fullname,
+                email: viewer.email
+              }
+            }}
+          />
+        );
+      }}
+    </ViewerContext.Consumer>
+  );
 };
 
-//map state to form
 const mapStateToProps = ({ shareItemPreview }) => ({ shareItemPreview });
 
-export default connect(mapStateToProps)(ShareItemPreview); //map through form share pform to shareitempreview
-
-
+export default connect(mapStateToProps)(ShareItemPreview);

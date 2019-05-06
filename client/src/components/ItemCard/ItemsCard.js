@@ -42,12 +42,10 @@ const ItemsCard = ({ classes, item }) => {
             {item.title}
           </Typography>
 
-          <Typography className={classes.description} variant="display1">
-            {item.description}
-          </Typography>
+          <Typography className={classes.description} variant="display1" />
 
           <Typography className={classes.tag} component="p">
-            {item.tag ? item.tags.map(tag => tag.title).join(', ') : null}
+            {item.tags ? item.tags.map(tag => tag.title).join(', ') : null}
           </Typography>
         </CardContent>
       </Fragment>

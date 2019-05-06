@@ -22,9 +22,7 @@ import {
   InputLabel,
   MenuItem,
   Checkbox,
-  Typography,
-
-
+  Typography
 } from '@material-ui/core/';
 
 class ShareItemForm extends Component {
@@ -49,6 +47,7 @@ class ShareItemForm extends Component {
 
   handleChange = event => {
     this.setState({ selectedTags: event.target.value });
+  
   };
   getBase64Url() {
     //look over
@@ -96,8 +95,10 @@ class ShareItemForm extends Component {
 
   saveItem = async (values, tags, addItemMutation) => {
     try {
-      const newItem = { ...values, tags: this.applyTags(tags) };
-      await addItemMutation({ variables: { item: newItem } });
+      const newItem = { ...values, tags: this.applyTags(tags) 
+     
+      };
+     
     } catch (e) {
       throw Error(e);
     }
@@ -140,7 +141,7 @@ class ShareItemForm extends Component {
                   return validate(values, this.state.selectedTags);
                 }}
                 render={({ handleSubmit, pristine, invalid, form, values }) => (
-                  <form onSubmit={handleSubmit}>
+                  <form onSubmit={(event)=>{handleSubmit(event);form.reset();}}>
                     <FormSpy
                       subscription={{ values: true }}
                       component={({ values }) => {
@@ -265,7 +266,6 @@ class ShareItemForm extends Component {
                         Share
                       </Button>
                     </div>
-                   
                   </form>
                 )}
               />
