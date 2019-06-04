@@ -25,9 +25,9 @@ const client = new ApolloClient({
       if (networkError) console.log(`[Network error]: ${networkError}`);
     }),
 
-    httpLink 
+    httpLink
   ]),
-  cache: new InMemoryCache() 
+  cache: new InMemoryCache()
 });
 
 export default client;

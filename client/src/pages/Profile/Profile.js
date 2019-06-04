@@ -46,7 +46,7 @@ const Profile = ({ classes, profile }) => {
         </Typography>
       </div>
 
-      <div className={classes.itemsLayout}>
+      <div className={classes.itemsL}>
         <ItemsGrid className={classes} items={profile.items} />
       </div>
     </div>
