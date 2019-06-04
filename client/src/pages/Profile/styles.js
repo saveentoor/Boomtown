@@ -41,7 +41,7 @@ const styles = theme => ({
     padding: 80,
     paddingTop: 100,
     marginLeft: 'auto',
-    
+
     //for0-600px width
     [theme.breakpoints.between('xs', 'sm')]: {
       padding: 16,
@@ -62,7 +62,6 @@ const styles = theme => ({
   },
   numberOfItems: {
     fontWeight: 'bold'
-  },
-
+  }
 });
 export default styles;

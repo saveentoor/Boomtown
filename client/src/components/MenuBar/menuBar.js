@@ -57,7 +57,7 @@ class MenuBar extends React.Component {
                   <Toolbar>
                     <Grid item xs={9}>
                       <IconButton component={Link} to="/">
-                        <img src={logo} width="30px" alt="Boomtown logo" />
+                        <img src={logo} width="40px" alt="Boomtown logo" />
                       </IconButton>
                     </Grid>
 
@@ -70,7 +70,7 @@ class MenuBar extends React.Component {
                       >
                         <Button component={Link} to="/share">
                           <AddCircle />
-                          Share an Item
+                          Share Something
                         </Button>
                       </Slide>
                     </Grid>
