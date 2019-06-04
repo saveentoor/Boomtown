@@ -7,6 +7,7 @@ import Avatar from '@material-ui/core/Avatar';
 import ItemsGrid from '../../components/ItemsGrid';
 import style from './styles';
 import { withStyles } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 const Profile = ({ classes, profile }) => {
   return (
@@ -51,5 +52,10 @@ const Profile = ({ classes, profile }) => {
       </div>
     </div>
   );
+};
+
+Profile.propTypes = {
+  classes: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 };
 export default withStyles(style)(Profile);
