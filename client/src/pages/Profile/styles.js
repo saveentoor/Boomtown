@@ -54,7 +54,8 @@ const styles = theme => ({
     }
   },
   cardContent: {
-    marginBottom: 50
+    marginBottom: 50,
+    padding: 90,
   },
   cardInfo: {
     display: 'flex',

@@ -19,10 +19,10 @@ Boomtown is a fully functional web-based application to support a local sharing 
 
 - React
 - Redux
+- Express
 - Node.js
 - Apollo Server
 - Postgres
-- Firebase
 - GraphQL
 - Material-ui
 
