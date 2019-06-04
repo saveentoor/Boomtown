@@ -22,7 +22,6 @@ class ShareContainer extends Component {
     );
   }
 }
-
 ShareContainer.protoTypes = {
   classes: PropTypes.object.isRequired
 };

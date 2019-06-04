@@ -19,6 +19,7 @@ const Share = ({ classes, tags }) => {
   );
 };
 Share.protoTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  tags: PropTypes.array.isRequired,
 };
 export default withStyles(styles)(Share);

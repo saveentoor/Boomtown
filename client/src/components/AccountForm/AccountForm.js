@@ -171,7 +171,8 @@ const refetchQueries = [
 AccountForm.propTypes = {
   classes: PropTypes.object.isRequired,
   loginMutation: PropTypes.func.isRequired,
-  signupMutation: PropTypes.func.isRequired
+  signupMutation: PropTypes.func.isRequired,
+
 };
 
 export default compose(
