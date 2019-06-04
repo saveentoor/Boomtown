@@ -4,6 +4,7 @@ import { Mutation } from 'react-apollo';
 import validate from './helpers/validation';
 import { ADD_ITEM_MUTATION } from '../../apollo/queries';
 import styles from './styles';
+import PropTypes from 'prop-types';
 import {
   updateItem,
   resetItem,
@@ -287,7 +288,13 @@ const mapDispatchToProps = dispatch => ({
     dispatch(resetItem());
   }
 });
-
+ShareForm.propTypes = {
+  classes: PropTypes.object.isRequired,
+  tags: PropTypes.array.isRequired,
+  updateItem: PropTypes.func.isRequired,
+  resetImage: PropTypes.func.isRequired,
+  resetItem: PropTypes.func.isRequired
+};
 export default connect(
   null,
   mapDispatchToProps

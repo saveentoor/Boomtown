@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import PropTypes from 'prop-types';
 
 function FullScreenLoader({ classes }) {
   return (
@@ -10,4 +11,8 @@ function FullScreenLoader({ classes }) {
     </div>
   );
 }
+FullScreenLoader.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
 export default withStyles(styles)(FullScreenLoader);
