@@ -6,17 +6,17 @@ import PropTypes from 'prop-types';
 import styles from './styles';
 
 const ItemsGrid = ({ classes, items }) => {
-  // return null;
   return (
-    <Grid className={classes.grid} container spacing={8}>
+    <Grid className={classes.grid} container spacing={16}>
       {items &&
         items.map(item => {
           return (
             <Grid
               item
               xs={12}
-              sm={6}
-              md={4}
+              sm={12}
+              md={6}
+              lg={4}
               className={classes.gridItem}
               key={item.id}
             >

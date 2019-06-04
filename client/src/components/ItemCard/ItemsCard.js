@@ -11,7 +11,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Gravatar from 'react-gravatar';
 import { Link, withRouter } from 'react-router-dom';
 import styles from './styles';
-import ItemCardDate from './ItemCardDate';
+import moment from 'moment';
 
 const ItemsCard = ({ classes, item }) => {
   return (
@@ -35,14 +35,14 @@ const ItemsCard = ({ classes, item }) => {
               <Typography className={classes.nameOfItemOwner}>
                 {item.itemowner.fullname}
               </Typography>
-              <Typography>{ItemCardDate(item.created)}</Typography>
+              <div className={classes.date}>{moment(new Date(item.created)).fromNow()}</div>
             </div>
           </div>
           <Typography className={classes.title} variant="display1">
             {item.title}
           </Typography>
 
-          <Typography className={classes.description} variant="display1" />
+          <Typography className={classes.description} variant="display1">{item.description}</Typography>
 
           <Typography className={classes.tag} component="p">
             {item.tags ? item.tags.map(tag => tag.title).join(', ') : null}

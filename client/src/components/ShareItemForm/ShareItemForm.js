@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Field, FormSpy } from 'react-final-form';
 import { Mutation } from 'react-apollo';
 import validate from './helpers/validation';
-import { ADD_ITEM_MUTATION, ALL_ITEMS_QUERY } from '../../apollo/queries';
+import { ADD_ITEM_MUTATION } from '../../apollo/queries';
 import styles from './styles';
 import {
   updateItem,
@@ -93,6 +93,7 @@ class ShareItemForm extends Component {
         ...values,
         tags: this.applyTags(tags)
       };
+      await addItemMutation({ variables: { item: newItem } });
     } catch (e) {
       throw Error(e);
     }
@@ -255,7 +256,7 @@ class ShareItemForm extends Component {
                       }}
                     </Field>
 
-                    <div>
+                    <div className={classes.shareB}>
                       <Button
                         variant="contained"
                         type="submit"

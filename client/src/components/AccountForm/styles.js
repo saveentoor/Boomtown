@@ -4,7 +4,8 @@ const styles = theme => ({
     width: '100%'
   },
   formButton: {
-    marginTop: theme.spacing.unit * 2
+    marginTop: theme.spacing.unit * 2,
+    
   },
   formToggle: {
     background: 'none',

@@ -1,32 +1,66 @@
+import { red } from '@material-ui/core/colors';
 const styles = theme => ({
   profileCardContainer: {
-    background: '#212121',
-    padding: 150,
-    height: '100%'
-  },
-  cardContent: {
-    padding: 50
-  },
-  cardInfo: {
-    display: 'flex'
+    backgroundColor: '#212121',
+    width: '100%',
+    marginRight: 'auto',
+    padding: 80,
+    paddingTop: 100,
+    marginLeft: 'auto',
+    //for0-600px width
+    [theme.breakpoints.between('xs', 'sm')]: {
+      padding: 16,
+      paddingTop: 36
+    },
+    //for600-1280px width
+    [theme.breakpoints.up('sm')]: {
+      paddingTop: 100,
+      padding: 80
+    }
   },
   fullName: {
-    marginLeft: 20,
-    fontSize: 30
+    color: red,
+    fontSize: 40,
+    marginLeft: 20
   },
   profileInfo: {
     fontSize: 20,
-    marginTop: 15
-  },
-  numberOfItems: {
-    fontWeight: 600
+    marginLeft: 10,
+    paddingTop: 10
   },
   profileSharePage: {
-    color: theme.palette.primary.main,
     fontSize: 40,
-    fontWeight: 600,
-    paddingTop: 20
+    color: '#f9a825',
+    paddingTop: 35
+  },
+  itemsLayout: {
+    //for 1280px width
+    backgroundColor: '#212121',
+    width: '100%',
+    marginRight: 'auto',
+    padding: 80,
+    paddingTop: 100,
+    marginLeft: 'auto',
+    //for0-600px width
+    [theme.breakpoints.between('xs', 'sm')]: {
+      padding: 16,
+      paddingTop: 36
+    },
+    //for600-1280px width
+    [theme.breakpoints.up('sm')]: {
+      paddingTop: 100,
+      padding: 80
+    }
+  },
+  cardContent: {
+    marginBottom: 50
+  },
+  cardInfo: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  numberOfItems: {
+    fontWeight: 'bold'
   }
 });
-
 export default styles;

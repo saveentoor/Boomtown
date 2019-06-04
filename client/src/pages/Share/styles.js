@@ -1,9 +1,7 @@
 const styles = theme => ({
-    sharePage: {
-        padding: 160
-
-    }
-    
+  sharePage: {
+    padding: 160
+  }
 });
 
 export default styles;

@@ -1,7 +1,4 @@
-
-
 const styles = theme => ({
-
   icon: {
     marginRight: theme.spacing.unit * 2
   },
@@ -33,10 +30,11 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     height: 600,
-    width: 400,
+    width: 450,
+    marginBottom: 50
   },
   cardMedia: {
-    paddingTop: '56.25%', 
+    paddingTop: '56.25%',
     height: 300
   },
   cardContent: {
@@ -47,21 +45,17 @@ const styles = theme => ({
     padding: theme.spacing.unit * 6
   },
   title: {
-    fontSize: 22,
     marginTop: 40,
     color: 'black',
-    fontSize: 20,
+    fontSize: 20
   },
   description: {
     fontSize: 16,
-    height: 80,
+
     paddingTop: 10,
-    color: 'black',
-  },
-  button: {
-    border: 1,
     color: 'black'
   },
+
   itemownerContainer: {
     display: 'flex',
     flexDirection: 'row'
@@ -71,16 +65,26 @@ const styles = theme => ({
   },
 
   cardAction: {
-    alignItem: 'flex-end'
+    alignItem: 'flex-end',
+    paddingTop: 40
   },
   button: {
     color: 'black',
     width: 130,
     paddingTop: 10,
     marginBottom: 15,
+    fontSize: 15,
+    height: 43,
+    marginLeft: 10
   },
   userInfo: {
     alignSelf: 'center'
+  },
+  date: {
+    color: 'rgba(0, 0, 0, 0.54)'
+  },
+  tag: {
+    color: 'rgba(0, 0, 0, 0.54)'
   }
 });
 

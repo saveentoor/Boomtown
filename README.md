@@ -4,19 +4,9 @@ Boomtown is a fully functional web-based application to support a local sharing 
 
 ## Getting Started
 
-- Download or clone git repo. Run
+- Download or clone git repo.
 - clients/npm install && npm start
 - server/npm install && npm run start:dev
-
-### Prerequisites
-
-You will need a Postgres server with the content matching the config files in Server. This repo may be updated to include this in the future.
-
-- app.set('Port_HOST', process.env.PG_HOST || 'localhost');
-- app.set('PG_USER', process.env.PG_USER || 'boomtown');
-- app.set('PG_PASSWORD', process.env.PG_PASSWORD || '\*\*\*\* YOUR PASSWORD');
-- app.set('PG_DB', process.env.PG_DB || ‘boomtown’);
-- app.set('PGPORT' , process.env.PGPORT || '8080');
 
 ## Installing
 
@@ -45,11 +35,11 @@ You will need a Postgres server with the content matching the config files in Se
 - Learned how to write resolver functions, data schemas and make queries for data and using GraphiQL to test the queries.
 - Learned how to protect routes when user is not in an authenticated state.
 
-**Contributors:**
-Saveen Toor
+# Author
+
+Saveen Toor, Full-Stack Developer student at Red Academy.
 
 ### Screenshot
 
-![alt text](/homepage.png)
-![alt text](/itemspage.png)
-![alt text](/sharepage.png)
+![alt text](./images/homepage.png)
+![alt text](./images/itemspage.png)

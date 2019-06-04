@@ -46,7 +46,7 @@ class MenuBar extends React.Component {
   render() {
     const { classes, location } = this.props;
     const { open } = this.state;
-  
+
     return (
       <ViewerContext.Consumer>
         {({ viewer, loading }) => {
@@ -62,10 +62,10 @@ class MenuBar extends React.Component {
                     </Grid>
 
                     <Grid item xs={2}>
-                      <Slide //to hide share button
+                      <Slide
                         direction="left"
-                        in={location.pathname !== '/share'} //to make it stay on the screen
-                        mountOnEnter //on user entering the page, active this
+                        in={location.pathname !== '/share'}
+                        mountOnEnter
                         unmountOnExit
                       >
                         <Button component={Link} to="/share">
@@ -109,6 +109,7 @@ class MenuBar extends React.Component {
                                   <MenuItem
                                     component={Link}
                                     to={`/profile/${viewer.id}`}
+                                    onClick={() => window.location.refresh()}
                                   >
                                     <Fingerprint />
                                     Profile

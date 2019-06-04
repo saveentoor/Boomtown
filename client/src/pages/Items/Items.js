@@ -3,7 +3,11 @@ import ItemsGrid from '../../components/ItemsGrid';
 import PropTypes from 'prop-types';
 
 const Items = ({ classes, items }) => {
-  return <ItemsGrid className={classes} items={items} />;
+  return (
+    <div className={classes.itemsLayout}>
+      <ItemsGrid className={classes} items={items} />
+    </div>
+  );
 };
 
 Items.protoTypes = {

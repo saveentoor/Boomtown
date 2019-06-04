@@ -1,6 +1,4 @@
 import gql from 'graphql-tag';
-import { ENUM_VALUE_DEFINITION } from 'graphql/language/kinds';
-
 
 const ItemFields = gql`
   fragment ItemFields on Item {
