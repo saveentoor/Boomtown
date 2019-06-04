@@ -288,7 +288,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(resetItem());
   }
 });
-ShareForm.propTypes = {
+ShareItemForm.propTypes = {
   classes: PropTypes.object.isRequired,
   tags: PropTypes.array.isRequired,
   updateItem: PropTypes.func.isRequired,
